@@ -2,11 +2,12 @@
 
 namespace Sulmar.EFCore.Models
 {
-    public class Customer
+    public class Customer : BaseEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName => $"{FirstName} {LastName}";
+        public string Pesel { get; set; }
         public CustomerType CustomerType { get; set; }
         public byte[] Avatar { get; set; }
         public DateTime? DateOfBirth { get; set; }
