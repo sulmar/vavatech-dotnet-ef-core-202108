@@ -29,6 +29,22 @@ namespace Vavatech.EFCore.DbRepositories
             // Owned Entities (https://docs.microsoft.com/en-us/ef/core/modeling/owned-entities)
             modelBuilder.Entity<Customer>().OwnsOne(p => p.InvoiceAddress);
             modelBuilder.Entity<Customer>().OwnsOne(p => p.ShipAddress);
+
+            // PK
+            // modelBuilder.Entity<Customer>().HasKey(p => p.Id);
+
+            // Klucz złożony (Composite Primary Key)
+            // modelBuilder.Entity<Customer>().HasKey(p => new { p.Id, p.Pesel });
+
+
+            // dotnet add package Microsoft.EntityFrameworkCore.Relational
+            modelBuilder.Entity<Item>().ToTable("Items");
+            modelBuilder.Entity<OrderDetail>().ToTable("OrderDetails");
+
+            modelBuilder.Entity<Customer>().Property(p => p.FirstName).HasMaxLength(50).IsRequired();
+            modelBuilder.Entity<Customer>().Property(p => p.LastName).HasMaxLength(50).IsRequired();
+
+            modelBuilder.Entity<Customer>().Property(p => p.Pesel).IsRequired().HasMaxLength(11).IsFixedLength().IsUnicode(false);
         }
 
 
