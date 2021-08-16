@@ -21,6 +21,12 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
                 .HasOne(p => p.Customer)
                 .WithMany(p => p.Orders)
                 .IsRequired();
+
+            // usuwanie kaskadowe
+            builder.HasMany(p => p.Details)
+                .WithOne(p => p.Order)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
