@@ -14,11 +14,13 @@ namespace Vavatech.EFCore.ConsoleClient
         {
             Console.WriteLine("Hello World!");
 
-            ShopContext context = CreateContext();
+            ShopContextFactory shopContextFactory = new ShopContextFactory();
+
+            ShopContext context = shopContextFactory.CreateDbContext(args);
 
             Setup(context);
 
-           // AddCustomers(context);
+            AddCustomers(context);
 
 
 
@@ -38,24 +40,14 @@ namespace Vavatech.EFCore.ConsoleClient
         private static void Setup(ShopContext context)
         {
             Console.WriteLine("Creating database...");
-            context.Database.EnsureCreated();
+
+            // context.Database.EnsureCreated(); // nie używać w przypadku stosowania migracji!
+
+            context.Database.Migrate();
+
             Console.WriteLine("Created.");
         }
 
-        private static ShopContext CreateContext()
-        {
-            string connectionString = @"Data Source=(local)\SQLEXPRESS;Integrated Security=True;Initial Catalog=ShopDb;Application Name=Shop";
-
-            // string connectionString2 = @"Data Source=(local)\SQLEXPRESS;Initial Catalog=ShopDb;Integrated Security=False;User Id=john;Password=yourP@ssw0rd;Application Name=Shop";
-
-            // dotnet add package Microsoft.EntityFrameworkCore.SqlServer
-            DbContextOptions options = new DbContextOptionsBuilder<ShopContext>()
-                .UseSqlServer(connectionString)
-                .Options;
-
-            ShopContext context = new ShopContext(options);
-
-            return context;
-        }
+       
     }
 }

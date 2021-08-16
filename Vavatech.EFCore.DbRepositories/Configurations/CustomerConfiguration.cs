@@ -19,6 +19,8 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
             builder.Property(p => p.LastName).HasMaxLength(50).IsRequired();
             builder.Property(p => p.Pesel).IsRequired().HasMaxLength(11).IsFixedLength().IsUnicode(false);
 
+            builder.Property(p => p.Nickname).IsRequired().HasMaxLength(50);
+
             // Konfiguracja jeden-do-wielu + wymaganie, że FK jest not null
             //builder.HasMany(p => p.Orders)
             //    .WithOne(p => p.Customer)

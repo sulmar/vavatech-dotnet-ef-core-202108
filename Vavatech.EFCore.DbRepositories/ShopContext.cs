@@ -88,6 +88,9 @@ namespace Vavatech.EFCore.DbRepositories
 
             // modelBuilder.Entity<Address>().Property(p => p.City).HasMaxLength(50);
 
+
+            // dotnet add package Microsoft.EntityFrameworkCore.Tools
+
         }
 
 

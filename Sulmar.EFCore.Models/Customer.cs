@@ -5,6 +5,7 @@ namespace Sulmar.EFCore.Models
 {
     public class Customer : BaseEntity
     {
+        public string Nickname { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName => $"{FirstName} {LastName}";

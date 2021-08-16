@@ -22,6 +22,7 @@ namespace Vavatech.EFCore.Fakers
             Ignore(p => p.Orders);
             Ignore(p => p.ModifiedOn);
 
+            RuleFor(p => p.Nickname, f => f.Person.UserName);
             RuleFor(p => p.FirstName, f => f.Person.FirstName);
             RuleFor(p => p.LastName, f => f.Person.LastName);
             RuleFor(p => p.DateOfBirth, f => f.Person.DateOfBirth);
