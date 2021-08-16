@@ -23,6 +23,7 @@ namespace Vavatech.EFCore.DbRepositories
         public DbSet<Product> Products { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<LoyaltyCard> LoyaltyCards { get; set; }
+        public DbSet<CustomerGroup> CustomerGroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

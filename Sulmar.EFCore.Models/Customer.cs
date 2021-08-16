@@ -17,6 +17,7 @@ namespace Sulmar.EFCore.Models
         public bool IsRemoved { get; set; }
         public IEnumerable<Order> Orders { get; set; }
         public LoyaltyCard LoyaltyCard { get; set; }
+        public IEnumerable<CustomerGroup> CustomerGroups { get; set; }
     }
 
     public enum CustomerType
