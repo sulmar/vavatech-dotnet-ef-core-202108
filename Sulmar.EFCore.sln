@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vavatech.EFCore.DbRepositor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vavatech.EFCore.Fakers", "Vavatech.EFCore.Fakers\Vavatech.EFCore.Fakers.csproj", "{71897C87-8842-4E0C-8232-3DCB04843989}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vavatech.EFCore.MVCApp", "Vavatech.EFCore.MVCApp\Vavatech.EFCore.MVCApp.csproj", "{086BAA7B-FDE0-4ED7-91B4-E74E177CB377}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{71897C87-8842-4E0C-8232-3DCB04843989}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71897C87-8842-4E0C-8232-3DCB04843989}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71897C87-8842-4E0C-8232-3DCB04843989}.Release|Any CPU.Build.0 = Release|Any CPU
+		{086BAA7B-FDE0-4ED7-91B4-E74E177CB377}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{086BAA7B-FDE0-4ED7-91B4-E74E177CB377}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{086BAA7B-FDE0-4ED7-91B4-E74E177CB377}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{086BAA7B-FDE0-4ED7-91B4-E74E177CB377}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

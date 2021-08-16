@@ -1,0 +1,8 @@
+﻿@using Sulmar.EFCore.Models
+@using System.Collections.Generic
+@model IEnumerable<Customer>
+
+@foreach(var customer in Model)
+{
+    <p>@customer.FirstName</p>
+}
