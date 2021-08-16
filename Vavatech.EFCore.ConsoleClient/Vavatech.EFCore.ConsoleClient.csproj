@@ -6,11 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bogus" Version="33.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Vavatech.EFCore.DbRepositories\Vavatech.EFCore.DbRepositories.csproj" />
+    <ProjectReference Include="..\Vavatech.EFCore.Fakers\Vavatech.EFCore.Fakers.csproj" />
     <ProjectReference Include="..\Vavatech.EFCore.IRepositories\Vavatech.EFCore.IRepositories.csproj" />
   </ItemGroup>
 

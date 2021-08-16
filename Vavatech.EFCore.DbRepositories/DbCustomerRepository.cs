@@ -21,6 +21,12 @@ namespace Vavatech.EFCore.DbRepositories
             context.SaveChanges();
         }
 
+        public void AddRange(IEnumerable<Customer> customers)
+        {
+            context.Customers.AddRange(customers);
+            context.SaveChanges();
+        }
+
         public IEnumerable<Customer> Get()
         {
             return context.Customers.ToList();
