@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Sulmar.EFCore.Models
 {
@@ -14,6 +15,7 @@ namespace Sulmar.EFCore.Models
         public Address InvoiceAddress { get; set; }
         public Address ShipAddress { get; set; }
         public bool IsRemoved { get; set; }
+        public IEnumerable<Order> Orders { get; set; }
     }
 
     public enum CustomerType

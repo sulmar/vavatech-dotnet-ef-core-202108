@@ -12,7 +12,7 @@ namespace Vavatech.EFCore.ConsoleClient
         {
             Console.WriteLine("Hello World!");
 
-            Customer customer = new Customer { FirstName = "John", LastName = "Smith" };
+            Customer customer = new Customer { FirstName = "John", LastName = "Smith", Pesel = "12345678901" };
 
             string connectionString = @"Data Source=(local)\SQLEXPRESS;Integrated Security=True;Initial Catalog=ShopDb;Application Name=Shop";
 
