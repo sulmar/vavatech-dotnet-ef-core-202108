@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Vavatech.EFCore.IRepositories;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Vavatech.EFCore.DbRepositories
 {
@@ -39,7 +40,8 @@ namespace Vavatech.EFCore.DbRepositories
 
         public Customer GetByPesel(string pesel)
         {
-            return context.Customers.SingleOrDefault(c => c.Pesel == pesel);
+            // Wyłączenie lokalne globalnego filtrowania
+            return context.Customers.IgnoreQueryFilters().SingleOrDefault(c => c.Pesel == pesel);
         }
 
         public void Remove(int id)

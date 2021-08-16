@@ -31,6 +31,8 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
                 .WithOne(p => p.Owner)
                 .HasForeignKey<LoyaltyCard>(p=>p.OwnerId);
 
+            builder.HasQueryFilter(p => !p.IsRemoved);
+
         }
     }
 }
