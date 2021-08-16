@@ -5,6 +5,7 @@ using System;
 using Vavatech.EFCore.DbRepositories;
 using Vavatech.EFCore.Fakers;
 using Vavatech.EFCore.IRepositories;
+using System.Linq;
 
 namespace Vavatech.EFCore.ConsoleClient
 {
@@ -20,8 +21,38 @@ namespace Vavatech.EFCore.ConsoleClient
 
             Setup(context);
 
-            AddCustomers(context);
+            // AddCustomers(context);
 
+            GetCustomers(context);
+
+            GetCustomer(context);
+        }
+
+        private static void GetCustomer(ShopContext context)
+        {
+            string pesel = "59101427230";
+
+            ICustomerRepository customerRepository = new DbCustomerRepository(context);
+
+            var customer = customerRepository.GetByPesel(pesel);
+
+            if (customer!=null)
+            {
+
+            }
+
+        }
+
+        private static void GetCustomers(ShopContext context)
+        {
+            ICustomerRepository customerRepository = new DbCustomerRepository(context);
+
+            var customers = customerRepository.Get();
+
+            if (customers.All(p=>!p.IsRemoved))
+            {
+
+            }
 
 
         }

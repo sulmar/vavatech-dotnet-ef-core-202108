@@ -15,10 +15,11 @@ namespace Sulmar.EFCore.Models
         public DateTime? DateOfBirth { get; set; }
         public Address InvoiceAddress { get; set; }
         public Address ShipAddress { get; set; }
-        public bool IsRemoved { get; set; }
         public IEnumerable<Order> Orders { get; set; }
         public LoyaltyCard LoyaltyCard { get; set; }
         public IEnumerable<CustomerGroup> CustomerGroups { get; set; }
+
+        public bool IsRemoved { get; set; }
     }
 
     public enum CustomerType

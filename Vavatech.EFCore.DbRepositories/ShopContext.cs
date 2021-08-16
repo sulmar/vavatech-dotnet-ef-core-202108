@@ -10,6 +10,16 @@ using Vavatech.EFCore.DbRepositories.Configurations;
 namespace Vavatech.EFCore.DbRepositories
 {
 
+    public class IdentityDbContext : DbContext
+    {
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Configure
+        }
+    }
+
 
     // dotnet add package Microsoft.EntityFrameworkCore
     public class ShopContext : DbContext
@@ -25,6 +35,8 @@ namespace Vavatech.EFCore.DbRepositories
         public DbSet<Service> Services { get; set; }
         public DbSet<LoyaltyCard> LoyaltyCards { get; set; }
         public DbSet<CustomerGroup> CustomerGroups { get; set; }
+
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -90,6 +102,9 @@ namespace Vavatech.EFCore.DbRepositories
 
 
             // dotnet add package Microsoft.EntityFrameworkCore.Tools
+
+            // EF Core 5 Wykluczenie tabeli z migracji
+            modelBuilder.Entity<ApplicationUser>().ToTable("ApplicationUsers", t => t.ExcludeFromMigrations());
 
         }
 
