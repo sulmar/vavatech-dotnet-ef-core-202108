@@ -16,7 +16,7 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
             builder.Property(p=>p.OrderDate).HasColumnType("datetime2").HasPrecision(3);
 
 
-            // Konfiguracja jeden-do -wielu + wymaganie, że FK jest not null
+            // Konfiguracja jeden-do-wielu + wymaganie, że FK jest not null
             builder
                 .HasOne(p => p.Customer)
                 .WithMany(p => p.Orders)

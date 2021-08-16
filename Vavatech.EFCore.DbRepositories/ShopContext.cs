@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sulmar.EFCore.Models;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vavatech.EFCore.DbRepositories.Configurations;
 
 namespace Vavatech.EFCore.DbRepositories
 {
+
+
     // dotnet add package Microsoft.EntityFrameworkCore
     public class ShopContext : DbContext
     {
@@ -56,11 +56,34 @@ namespace Vavatech.EFCore.DbRepositories
 
             // Automatyczne ładowanie wszystkich konfiguracji IEntityTypeConfiguration<T>
 
+            // Tworzenie własnych konwencji
+            //var properties = (from e in modelBuilder.Model.GetEntityTypes()
+            //                  from p in e.GetProperties()
+            //                  where p.PropertyInfo?.PropertyType == typeof(string)
+            //                  select p).ToList();
+
+            //var properties = modelBuilder.Properties<string>();
+
+            //foreach (var property in properties)
+            //{
+            //    property.SetMaxLength(100);
+            //    property.SetIsUnicode(false);
+            //}
+
+            modelBuilder.Properties<string>().Configure(c =>
+            {
+                c.SetMaxLength(250);
+                c.SetIsUnicode(false);
+            });
+
+            modelBuilder.Properties<DateTime>().Configure(c => c.SetColumnType("datetime"));
+
+
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomerConfiguration).Assembly);
 
             // modelBuilder.Entity<Address>().Property(p => p.City).HasMaxLength(50);
 
-            
         }
 
 
