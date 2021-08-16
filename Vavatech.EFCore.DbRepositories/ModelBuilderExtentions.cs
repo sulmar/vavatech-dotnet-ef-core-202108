@@ -20,4 +20,5 @@ namespace Vavatech.EFCore.DbRepositories
             }
         }
     }
+
 }
