@@ -20,7 +20,17 @@ namespace Vavatech.EFCore.MVCApp.Controllers
         {
             var customers = customerRepository.Get();
 
+
             return View(customers);
+        }
+
+        public IActionResult Index([FromServices] IOrderRepository orderRepository, int customerId)
+        {
+            var customer = customerRepository.Get(customerId);
+
+            var orders = orderRepository.GetByCustomer(customer.Id);
+
+            return View(customer);
         }
     }
 }
