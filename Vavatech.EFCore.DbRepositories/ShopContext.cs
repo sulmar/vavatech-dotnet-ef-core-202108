@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sulmar.EFCore.Models;
 using System;
+using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,9 +77,12 @@ namespace Vavatech.EFCore.DbRepositories
                 c.SetIsUnicode(false);
             });
 
-            modelBuilder.Properties<DateTime>().Configure(c => c.SetColumnType("datetime"));
+            modelBuilder.Properties<DateTime>()                
+                .Configure(c => c.SetColumnType("datetime"));
 
-
+            //modelBuilder.Properties()
+            //    .Where(p => p.Name == p.DeclaringType.Name + "Id")
+            //    .Configure(c => c.IsKey());
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomerConfiguration).Assembly);
 

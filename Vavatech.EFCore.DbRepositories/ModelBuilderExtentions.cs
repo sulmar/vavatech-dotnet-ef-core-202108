@@ -17,6 +17,14 @@ namespace Vavatech.EFCore.DbRepositories
 
         }
 
+        public static IEnumerable<IMutableProperty> Properties(this ModelBuilder modelBuilder)
+        {
+            return from e in modelBuilder.Model.GetEntityTypes()
+                   from p in e.GetProperties()
+                   select p;
+
+        }
+
         public static void Configure(this IEnumerable<IMutableProperty> properties, Action<IMutableProperty> configuration)
         {
             foreach (var property in properties)
