@@ -24,6 +24,11 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
             //    .WithOne(p => p.Customer)
             //    .IsRequired();
 
+            // relacja jeden-do-jeden
+            builder.HasOne(p => p.LoyaltyCard)
+                .WithOne(p => p.Owner)
+                .HasForeignKey<LoyaltyCard>(p=>p.OwnerId);
+
         }
     }
 }
