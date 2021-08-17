@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+﻿using System;
 
 namespace Sulmar.EFCore.Models
 {
     public class OrderDetail : BaseEntity
     {
-        private readonly ILazyLoader lazyLoader;
+        private readonly Action<object, string> lazyLoader;
         
         private Item item;
         public Item Item { get => lazyLoader.Load(this, ref item); set => item = value; }
@@ -14,7 +14,7 @@ namespace Sulmar.EFCore.Models
 
         public virtual Order Order { get; set; }
 
-        public OrderDetail(ILazyLoader lazyLoader)
+        public OrderDetail(Action<object, string> lazyLoader)
         {
             this.lazyLoader = lazyLoader;
         }
