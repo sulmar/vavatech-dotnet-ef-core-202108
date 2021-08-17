@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Vavatech.EFCore.IRepositories;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace Vavatech.EFCore.DbRepositories
 {
@@ -18,8 +19,29 @@ namespace Vavatech.EFCore.DbRepositories
 
         public void Add(Customer customer)
         {
+            Debug.WriteLine(context.Entry(customer).State);
+
             context.Customers.Add(customer);
+
+            Debug.WriteLine(context.Entry(customer).State);
+
             context.SaveChanges();
+
+            Debug.WriteLine(context.Entry(customer).State);
+
+            customer.IsRemoved = !customer.IsRemoved;
+
+            // customer.IsRemoved = !customer.IsRemoved;
+
+            var property = context.Entry(customer).Property(p => p.IsRemoved);
+
+            Debug.WriteLine($"{property.Metadata.Name} IsModified={property.IsModified} OriginalValue={property.OriginalValue} CurrentValue={property.CurrentValue}");
+
+            Debug.WriteLine(context.Entry(customer).State);
+
+            context.SaveChanges();
+
+            Debug.WriteLine(context.Entry(customer).State);
         }
 
         public void AddRange(IEnumerable<Customer> customers)
@@ -44,16 +66,54 @@ namespace Vavatech.EFCore.DbRepositories
             return context.Customers.IgnoreQueryFilters().SingleOrDefault(c => c.Pesel == pesel);
         }
 
+        //public void Remove(int id)
+        //{
+        //    Customer customer = Get(id);
+        //    Debug.WriteLine(context.Entry(customer).State);
+
+        //    context.Customers.Remove(customer);
+        //    Debug.WriteLine(context.Entry(customer).State);
+
+        //    context.SaveChanges();
+        //    Debug.WriteLine(context.Entry(customer).State);
+        //}
+
         public void Remove(int id)
         {
-            context.Customers.Remove(Get(id));
+            Customer customer = new Customer { Id = id };
+            Debug.WriteLine(context.Entry(customer).State);
+
+            context.Customers.Remove(customer);
+            Debug.WriteLine(context.Entry(customer).State);
+
             context.SaveChanges();
+            Debug.WriteLine(context.Entry(customer).State);
         }
 
         public void Update(Customer customer)
         {
+            Debug.WriteLine(context.Entry(customer).State);
+
             context.Customers.Update(customer);
+
+            Debug.WriteLine(context.Entry(customer).State);
+
             context.SaveChanges();
+
+            Debug.WriteLine(context.Entry(customer).State);
+        }
+
+        public void UpdateDateOfBirth(Customer customer)
+        {
+            Debug.WriteLine(context.Entry(customer).State);
+
+            context.Entry(customer).Property(p => p.DateOfBirth).IsModified = true;
+
+            Debug.WriteLine(context.Entry(customer).State);
+
+            context.SaveChanges();
+
+            Debug.WriteLine(context.Entry(customer).State);
         }
     }
 }

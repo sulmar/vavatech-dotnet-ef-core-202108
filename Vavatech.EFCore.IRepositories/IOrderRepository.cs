@@ -9,6 +9,7 @@ namespace Vavatech.EFCore.IRepositories
 {
     public interface IOrderRepository
     {
+        void Add(Order order);
         IEnumerable<Order> GetByCustomer(int customerId);
     }
 }

@@ -4,15 +4,9 @@ using System.Collections.Generic;
 
 namespace Vavatech.EFCore.IRepositories
 {
-    public interface ICustomerRepository
+    public interface ICustomerRepository : IEntityRepository<Customer>
     {
-        void Add(Customer customer);
-        void AddRange(IEnumerable<Customer> customers);
-        void Update(Customer customer);
-        void Remove(int id);
-        IEnumerable<Customer> Get();
-        Customer Get(int id);
-
         Customer GetByPesel(string pesel);
+        void UpdateDateOfBirth(Customer customer);
     }
 }

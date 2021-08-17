@@ -8,6 +8,19 @@
         public decimal LineAmount => Quantity * UnitPrice;
 
         public Order Order { get; set; }
+
+        public OrderDetail()
+        {
+
+        }
+
+        public OrderDetail(Item item, int quantity = 1)
+            : this()
+        {
+            Item = item;
+            UnitPrice = item.UnitPrice;
+            Quantity = quantity;
+        }
     }
 }
 

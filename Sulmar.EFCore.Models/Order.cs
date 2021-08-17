@@ -8,9 +8,14 @@ namespace Sulmar.EFCore.Models
     {
         public DateTime OrderDate { get; set; }
         public Customer Customer { get; set; }
-        public IEnumerable<OrderDetail> Details { get; set; }
+        public ICollection<OrderDetail> Details { get; set; }
         public OrderStatus Status { get; set; }
         public decimal TotalAmount => Details.Sum(d => d.LineAmount);
+
+        public Order()
+        {
+            Details = new List<OrderDetail>();
+        }
     }
 
     public enum OrderStatus

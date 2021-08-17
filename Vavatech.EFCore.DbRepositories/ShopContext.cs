@@ -92,6 +92,7 @@ namespace Vavatech.EFCore.DbRepositories
             modelBuilder.Properties<DateTime>()                
                 .Configure(c => c.SetColumnType("datetime"));
 
+
             //modelBuilder.Properties()
             //    .Where(p => p.Name == p.DeclaringType.Name + "Id")
             //    .Configure(c => c.IsKey());
