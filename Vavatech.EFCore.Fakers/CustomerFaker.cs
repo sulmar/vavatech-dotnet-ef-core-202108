@@ -10,7 +10,7 @@ namespace Vavatech.EFCore.Fakers
     // https://github.com/bchavez/Bogus
     public class CustomerFaker : Faker<Customer>
     {
-        public CustomerFaker(Faker<Address> addressFaker)
+        public CustomerFaker(Faker<Address> addressFaker, Faker<Coordinate> coordinateFaker)
         {
             StrictMode(true);
 
@@ -36,6 +36,17 @@ namespace Vavatech.EFCore.Fakers
 
             RuleFor(p => p.InvoiceAddress, f => addressFaker.Generate());
             RuleFor(p => p.ShipAddress, f => addressFaker.Generate());
+
+            RuleFor(p => p.Location, f => coordinateFaker.Generate());
+        }
+    }
+
+    public class CoordinateFaker : Faker<Coordinate>
+    {
+        public CoordinateFaker()
+        {
+            RuleFor(p => p.Latitude, f => f.Address.Latitude());
+            RuleFor(p => p.Longitude, f => f.Address.Longitude());
         }
     }
 }

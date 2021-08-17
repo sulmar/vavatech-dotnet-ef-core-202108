@@ -29,6 +29,9 @@ namespace Sulmar.EFCore.Models
             }
         }
 
+
+        public Coordinate Location { get; set; }
+
         public bool IsRemoved
         {
             get => isRemoved;

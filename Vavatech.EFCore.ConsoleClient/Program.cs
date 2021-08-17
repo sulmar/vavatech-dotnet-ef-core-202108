@@ -24,7 +24,7 @@ namespace Vavatech.EFCore.ConsoleClient
 
             Setup(context);
 
-            // AddCustomer(context);
+            AddCustomer(context);
 
             // UpdateCustomer(context);
 
@@ -34,7 +34,7 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // AddCustomers(context);
 
-            //GetCustomers(context);
+           // GetCustomers(context);
 
             //GetCustomer(context);
 
@@ -54,7 +54,9 @@ namespace Vavatech.EFCore.ConsoleClient
             //GetAttachments(context);
             //GetAttachmentDetail(context);
 
-            GetOrders(context);
+            // GetOrders(context);
+
+            
 
         }
 
@@ -254,7 +256,7 @@ namespace Vavatech.EFCore.ConsoleClient
         {
             ICustomerRepository customerRepository = new DbCustomerRepository(context);
 
-            Faker<Customer> faker = new CustomerFaker(new AddressFaker());
+            Faker<Customer> faker = new CustomerFaker(new AddressFaker(), new CoordinateFaker());
 
             Customer customer = faker.Generate();
 
@@ -294,7 +296,7 @@ namespace Vavatech.EFCore.ConsoleClient
         {
             ICustomerRepository customerRepository = new DbCustomerRepository(context);
 
-            Faker<Customer> customerFaker = new CustomerFaker(new AddressFaker());
+            Faker<Customer> customerFaker = new CustomerFaker(new AddressFaker(), new CoordinateFaker());
 
             var customers = customerFaker.GenerateLazy(100);
 

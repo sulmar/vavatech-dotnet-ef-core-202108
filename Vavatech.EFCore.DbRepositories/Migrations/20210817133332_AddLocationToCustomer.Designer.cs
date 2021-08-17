@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vavatech.EFCore.DbRepositories;
 
 namespace Vavatech.EFCore.DbRepositories.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20210817133332_AddLocationToCustomer")]
+    partial class AddLocationToCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,9 +153,8 @@ namespace Vavatech.EFCore.DbRepositories.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("CustomerType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CustomerType")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
