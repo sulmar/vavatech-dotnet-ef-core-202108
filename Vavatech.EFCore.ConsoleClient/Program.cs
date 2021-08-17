@@ -49,9 +49,23 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // AddAttachments(context);
 
-            GetAttachments(context);
-            GetAttachmentDetail(context);
+            //GetAttachments(context);
+            //GetAttachmentDetail(context);
 
+            GetOrders(context);
+
+        }
+
+        private static void GetOrders(ShopContext context)
+        {
+            IOrderRepository orderRepository = new DbOrderRepository(context);
+
+            var orders = orderRepository.Get();
+
+            foreach (var order in orders)
+            {
+                Console.WriteLine($"{order.Customer.FullName}");
+            }
         }
 
         private static void GetAttachments(ShopContext context)

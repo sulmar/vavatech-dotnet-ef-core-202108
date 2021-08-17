@@ -11,5 +11,7 @@ namespace Vavatech.EFCore.IRepositories
     {
         void Add(Order order);
         IEnumerable<Order> GetByCustomer(int customerId);
+
+        IEnumerable<Order> Get();
     }
 }
