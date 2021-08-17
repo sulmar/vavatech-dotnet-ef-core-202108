@@ -19,7 +19,37 @@ namespace Vavatech.EFCore.DbRepositories
 
         public void Add(Order order)
         {
+            // Własna Strategia
+            context.ChangeTracker.TrackGraph(order, e => 
+            {
+                if (e.Entry.IsKeySet)
+                {
+                    e.Entry.State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+                }
+                else
+                {
+                    e.Entry.State = Microsoft.EntityFrameworkCore.EntityState.Added;
+                }
+            });
+
             context.Orders.Add(order);
+
+
+            // ręczne sterowanie 
+            //context.Entry(order.Customer).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+
+            //foreach (var detail in order.Details)
+            //{
+            //    context.Entry(detail.Item).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+            //}
+
+            var entries = context.ChangeTracker.Entries();
+
+            Console.WriteLine(context.ChangeTracker.DebugView.ShortView);
+
+            Console.Clear();
+
+            Console.WriteLine(context.ChangeTracker.DebugView.LongView);
 
             context.SaveChanges();
         }

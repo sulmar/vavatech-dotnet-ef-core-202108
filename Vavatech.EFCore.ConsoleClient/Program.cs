@@ -36,10 +36,12 @@ namespace Vavatech.EFCore.ConsoleClient
 
             //GetCustomer(context);
 
-            AddProducts(context);
-            AddServices(context);
+            //AddProducts(context);
+            //AddServices(context);
 
-            AddOrder(context);
+            // AddOrder(context);
+
+            AddDetachedOrder(context);
         }
 
 
@@ -76,6 +78,32 @@ namespace Vavatech.EFCore.ConsoleClient
             Product product2 = productRepository.Get(2);
             Product product3 = productRepository.Get(3);
             Service service1 = serviceRepository.Get(21);
+
+            Order order = new Order
+            {
+                CreatedOn = DateTime.Now,
+                Customer = customer,
+                OrderDate = DateTime.Today,
+            };
+
+            order.Details.Add(new OrderDetail(product1));
+            order.Details.Add(new OrderDetail(product2));
+            order.Details.Add(new OrderDetail(product3));
+            order.Details.Add(new OrderDetail(service1));
+
+            orderRepository.Add(order);
+        }
+
+        private static void AddDetachedOrder(ShopContext context)
+        {
+            IOrderRepository orderRepository = new DbOrderRepository(context);
+
+            Customer customer = new Customer { Id = 11 };
+
+            Product product1 = new Product { Id = 1 };
+            Product product2 = new Product { Id = 2 };
+            Product product3 = new Product { Id = 3 };
+            Service service1 = new Service { Id = 21 };
 
             Order order = new Order
             {

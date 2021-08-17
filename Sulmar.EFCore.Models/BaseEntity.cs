@@ -8,6 +8,12 @@ namespace Sulmar.EFCore.Models
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
 
+
+        public BaseEntity()
+        {
+            CreatedOn = DateTime.Now;
+        }
+
     }
 }
 
