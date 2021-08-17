@@ -24,9 +24,9 @@ namespace Vavatech.EFCore.ConsoleClient
 
             Setup(context);
 
-            AddCustomer(context);
+            // AddCustomer(context);
 
-            // UpdateCustomer(context);
+            UpdateCustomer(context);
 
             // RemoveCustomer(context);
 
@@ -225,10 +225,10 @@ namespace Vavatech.EFCore.ConsoleClient
         {
             ICustomerRepository customerRepository = new DbCustomerRepository(context);
 
-            Customer customer = customerRepository.Get(100);
+            Customer customer = customerRepository.Get(11);
 
             customer.DateOfBirth = customer.DateOfBirth.Value.AddDays(1);
-
+            
             customerRepository.Update(customer);
         }
 

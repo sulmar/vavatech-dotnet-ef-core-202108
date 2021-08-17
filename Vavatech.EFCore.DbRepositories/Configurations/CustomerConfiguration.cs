@@ -49,17 +49,28 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
             //builder.Property(p => p.Location)
             //    .HasConversion(new GeoHashConverter());
 
-            //builder.Property(p => p.Location)
-            //    .HasGeoHash();
+            builder.Property(p => p.Location)
+                .HasGeoHash();
 
             builder.Property(p => p.CustomerType)
                 .HasConversion(new EnumToStringConverter<CustomerType>());
 
-            builder.Property(p => p.Location)
-                .HasConversion(
-                  coordinate => JsonConvert.SerializeObject(coordinate),
-                    value => JsonConvert.DeserializeObject<Coordinate>(value)
-                );
+            //builder.Property(p => p.Location)
+            //    .HasConversion(
+            //      coordinate => JsonConvert.SerializeObject(coordinate),
+            //        value => JsonConvert.DeserializeObject<Coordinate>(value)
+            //    );
+
+
+            builder.Property(p => p.CreatedOn)
+               .HasDefaultValueSql("getdate()")
+               .ValueGeneratedOnAdd();
+
+            builder.Property(p => p.ModifiedOn)
+                .HasDefaultValueSql("getdate()")
+                .ValueGeneratedOnUpdate();
+
+
         }
     }
 

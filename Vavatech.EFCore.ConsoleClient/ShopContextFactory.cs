@@ -22,6 +22,7 @@ namespace Vavatech.EFCore.ConsoleClient
             DbContextOptions options = new DbContextOptionsBuilder<ShopContext>()
                 .UseSqlServer(connectionString)
                 // .UseLazyLoadingProxies()
+                //.AddInterceptors(new ModifyDateSaveChangesInterceptor())
                 .Options;
 
             ShopContext context = new ShopContext(options);
