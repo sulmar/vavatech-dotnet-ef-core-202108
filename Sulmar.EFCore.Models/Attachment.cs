@@ -11,7 +11,7 @@ namespace Sulmar.EFCore.Models
         public string FileName { get; set; }
         public string ContentType { get; set; }
 
-        public AttachmentDetail AttachmentDetail { get; set; }
+        public virtual AttachmentDetail AttachmentDetail { get; set; }
 
     }
 }

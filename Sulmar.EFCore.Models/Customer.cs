@@ -18,9 +18,9 @@ namespace Sulmar.EFCore.Models
         public DateTime? DateOfBirth { get; set; }
         public Address InvoiceAddress { get; set; }
         public Address ShipAddress { get; set; }
-        public IEnumerable<Order> Orders { get; set; }
-        public LoyaltyCard LoyaltyCard { get; set; }
-        public IEnumerable<CustomerGroup> CustomerGroups
+        public virtual IEnumerable<Order> Orders { get; set; }
+        public virtual LoyaltyCard LoyaltyCard { get; set; }
+        public virtual IEnumerable<CustomerGroup> CustomerGroups
         {
             get => customerGroups; set
             {

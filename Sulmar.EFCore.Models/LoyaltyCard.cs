@@ -8,7 +8,7 @@ namespace Sulmar.EFCore.Models
         public DateTime ExpirationDate { get; set; }
 
         public int OwnerId { get; set; }
-        public Customer Owner { get; set; }
+        public virtual Customer Owner { get; set; }
     }
 }
 

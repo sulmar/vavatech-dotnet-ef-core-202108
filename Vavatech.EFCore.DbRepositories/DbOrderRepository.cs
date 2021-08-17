@@ -2,6 +2,7 @@
 using Sulmar.EFCore.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -77,25 +78,47 @@ namespace Vavatech.EFCore.DbRepositories
         */
 
         // Jawne pobieranie danych (Explicit loading)
+        //public IEnumerable<Order> Get()
+        //{
+        //    var orders = context.Orders.ToList();
+
+        //    foreach (var order in orders)
+        //    {
+        //        // ...
+        //        context.Entry(order).Reference(p => p.Customer).Load();
+
+        //        context.Entry(order).Collection(p => p.Details).Load();
+        //    }
+
+        //    return orders;
+        //}
+
+        // Leniwe pobieranie danych (Lazy loading)
+
+        // 1. dotnet add package Microsoft.EntityFrameworkCore.Proxies
+        // 2. dodaj modelBuilder.UseLazyLoadingProxies()
+        // 3. dodaj virtual do WSZYSTKICH(!) właściwości navigation property
+
         public IEnumerable<Order> Get()
         {
             var orders = context.Orders.ToList();
 
             foreach (var order in orders)
             {
-                // ...
-                context.Entry(order).Reference(p => p.Customer).Load();
-
-                context.Entry(order).Collection(p => p.Details).Load();
+                Debug.WriteLine(order.Customer.FullName);
             }
 
             return orders;
+
         }
 
-            public IEnumerable<Order> GetByCustomer(int customerId)
+         public IEnumerable<Order> GetByCustomer(int customerId)
         {
             throw new NotImplementedException();
         }
+
+       
+
 
         
     }

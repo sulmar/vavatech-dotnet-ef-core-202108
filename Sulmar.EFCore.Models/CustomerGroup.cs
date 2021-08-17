@@ -10,6 +10,6 @@ namespace Sulmar.EFCore.Models
     {
         public string Name { get; set; }
 
-        public IEnumerable<Customer> Customers { get; set; }
+        public virtual IEnumerable<Customer> Customers { get; set; }
     }
 }
