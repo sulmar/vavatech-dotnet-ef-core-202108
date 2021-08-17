@@ -93,7 +93,7 @@ namespace Vavatech.EFCore.DbRepositories
         //    return orders;
         //}
 
-        // Leniwe pobieranie danych (Lazy loading)
+        // Leniwe pobieranie danych (Lazy loading) z Proxy
 
         // 1. dotnet add package Microsoft.EntityFrameworkCore.Proxies
         // 2. dodaj modelBuilder.UseLazyLoadingProxies()
@@ -106,6 +106,11 @@ namespace Vavatech.EFCore.DbRepositories
             foreach (var order in orders)
             {
                 Debug.WriteLine(order.Customer.FullName);
+
+                foreach (var orderDetail in order.Details)
+                {
+                    Debug.WriteLine(orderDetail.Item.Name);
+                }
             }
 
             return orders;
