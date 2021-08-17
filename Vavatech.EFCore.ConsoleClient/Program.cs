@@ -45,9 +45,36 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // GetProducts(context);
 
-           // UpdateByINotifyPropertyChangedCustomer(context);
+            // UpdateByINotifyPropertyChangedCustomer(context);
 
+            // AddAttachments(context);
 
+            GetAttachments(context);
+            GetAttachmentDetail(context);
+
+        }
+
+        private static void GetAttachments(ShopContext context)
+        {
+            IAttachmentRepository attachmentRepository = new DbAttachmentRepository(context);
+            var attachments = attachmentRepository.Get();
+        }
+
+        private static void GetAttachmentDetail(ShopContext context)
+        {
+            IAttachmentDetailRepository attachmentDetailRepository = new DbAttachmentDetailRepository(context);
+            var detail = attachmentDetailRepository.Get(1);
+        }
+
+        private static void AddAttachments(ShopContext context)
+        {
+            Faker<Attachment> faker = new AttachmentFaker(new AttachmentDetailFaker());
+
+            var attachments = faker.Generate(50);
+
+            IAttachmentRepository attachmentRepository = new DbAttachmentRepository(context);
+
+            attachmentRepository.AddRange(attachments);
 
 
         }

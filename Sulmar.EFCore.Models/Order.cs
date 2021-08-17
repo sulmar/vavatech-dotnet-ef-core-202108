@@ -12,6 +12,8 @@ namespace Sulmar.EFCore.Models
         public OrderStatus Status { get; set; }
         public decimal TotalAmount => Details.Sum(d => d.LineAmount);
 
+        public IEnumerable<Attachment> Attachments { get; set; }
+
         public Order()
         {
             Details = new List<OrderDetail>();
