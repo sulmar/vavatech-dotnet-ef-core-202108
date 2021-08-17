@@ -7,6 +7,8 @@ using Vavatech.EFCore.Fakers;
 using Vavatech.EFCore.IRepositories;
 using System.Linq;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Vavatech.EFCore.ConsoleClient
 {
@@ -65,6 +67,11 @@ namespace Vavatech.EFCore.ConsoleClient
             foreach (var order in orders)
             {
                 Console.WriteLine($"{order.Customer.FullName}");
+
+                foreach (var detail in order.Details)
+                {
+                    Console.WriteLine(detail.Item.Name);
+                }
             }
         }
 
@@ -162,7 +169,7 @@ namespace Vavatech.EFCore.ConsoleClient
             Product product3 = productRepository.Get(3);
             Service service1 = serviceRepository.Get(21);
 
-            Order order = new Order
+            Order order = new Order(null)
             {
                 CreatedOn = DateTime.Now,
                 Customer = customer,
@@ -188,7 +195,7 @@ namespace Vavatech.EFCore.ConsoleClient
             Product product3 = new Product { Id = 3 };
             Service service1 = new Service { Id = 21 };
 
-            Order order = new Order
+            Order order = new Order(null)
             {
                 CreatedOn = DateTime.Now,
                 Customer = customer,

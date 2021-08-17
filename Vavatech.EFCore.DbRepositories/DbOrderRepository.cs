@@ -99,6 +99,13 @@ namespace Vavatech.EFCore.DbRepositories
         // 2. dodaj modelBuilder.UseLazyLoadingProxies()
         // 3. dodaj virtual do WSZYSTKICH(!) właściwości navigation property
 
+
+        // Leniwe pobieranie danych (Lazy loading) z ILazyLoader
+        // 1. Dodaj ILazyLoader do konstruktora
+        // 2. Dodaj LazyLoader.Load() do właściwości
+
+        // nie wymaga Microsoft.EntityFrameworkCore.Proxies i virtual
+
         public IEnumerable<Order> Get()
         {
             var orders = context.Orders.ToList();
