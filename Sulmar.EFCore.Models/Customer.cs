@@ -5,6 +5,9 @@ namespace Sulmar.EFCore.Models
 {
     public class Customer : BaseEntity
     {
+        private bool isRemoved;
+        private IEnumerable<CustomerGroup> customerGroups;
+
         public string Nickname { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -17,9 +20,24 @@ namespace Sulmar.EFCore.Models
         public Address ShipAddress { get; set; }
         public IEnumerable<Order> Orders { get; set; }
         public LoyaltyCard LoyaltyCard { get; set; }
-        public IEnumerable<CustomerGroup> CustomerGroups { get; set; }
+        public IEnumerable<CustomerGroup> CustomerGroups
+        {
+            get => customerGroups; set
+            {
+                customerGroups = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public bool IsRemoved { get; set; }
+        public bool IsRemoved
+        {
+            get => isRemoved;
+            set
+            {
+                isRemoved = value;
+                OnPropertyChanged();
+            }
+        }
     }
 
     public enum CustomerType

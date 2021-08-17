@@ -41,9 +41,51 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // AddOrder(context);
 
-            AddDetachedOrder(context);
+            // AddDetachedOrder(context);
+
+            // GetProducts(context);
+
+           // UpdateByINotifyPropertyChangedCustomer(context);
+
+
+
+
         }
 
+        //private static void UpdateByINotifyPropertyChangedCustomer(ShopContext context)
+        //{
+        //    Customer customer = context.Customers.Find(1);
+
+        //    Console.WriteLine(context.Entry(customer).State); Console.WriteLine(context.Entry(customer).State);
+
+        //    customer.IsRemoved = !customer.IsRemoved;
+
+        //    Console.WriteLine(context.Entry(customer).State);
+
+        //    Console.WriteLine(context.ChangeTracker.DebugView.ShortView);
+
+        //    context.SaveChanges();
+
+        //    Console.WriteLine(context.Entry(customer).State);
+
+
+        //}
+
+        private static void GetProducts(ShopContext context)
+        {
+            IProductRepository productRepository = new DbProductRepository(context);
+
+            var products = productRepository.Get();
+
+            var product = products.FirstOrDefault();
+
+            Console.WriteLine(context.Entry(product).State);
+
+            product.Color = "Red";
+
+            Console.WriteLine(context.Entry(product).State);
+
+        }
 
         private static void AddServices(ShopContext context)
         {

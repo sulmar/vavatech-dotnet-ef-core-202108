@@ -26,7 +26,9 @@ namespace Vavatech.EFCore.DbRepositories
     {
         public ShopContext([NotNull] DbContextOptions options) : base(options)
         {
-           // this.Database.EnsureCreated();            
+            // this.Database.EnsureCreated();            
+
+            // ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
         public DbSet<Customer> Customers { get; set; }
@@ -106,6 +108,9 @@ namespace Vavatech.EFCore.DbRepositories
 
             // EF Core 5 Wykluczenie tabeli z migracji
             modelBuilder.Entity<ApplicationUser>().ToTable("ApplicationUsers", t => t.ExcludeFromMigrations());
+
+            // INotifyPropertyChanged
+            // modelBuilder.HasChangeTrackingStrategy(ChangeTrackingStrategy.ChangedNotifications);
 
         }
 
