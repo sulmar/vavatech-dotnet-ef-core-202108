@@ -42,6 +42,8 @@ namespace Sulmar.EFCore.Models
                 OnPropertyChanged();
             }
         }
+
+        public byte[] Version { get; set; }
     }
 
     public enum CustomerType

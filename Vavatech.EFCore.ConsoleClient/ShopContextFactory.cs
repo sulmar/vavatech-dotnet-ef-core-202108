@@ -20,7 +20,10 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // dotnet add package Microsoft.EntityFrameworkCore.SqlServer
             DbContextOptions options = new DbContextOptionsBuilder<ShopContext>()
-                .UseSqlServer(connectionString)
+                .UseSqlServer(connectionString, options =>
+                {
+                    // options.MaxBatchSize(99);
+                })
                 .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
                 // .UseLazyLoadingProxies()
                 //.AddInterceptors(new ModifyDateSaveChangesInterceptor())

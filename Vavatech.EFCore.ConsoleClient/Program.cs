@@ -75,8 +75,27 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // DistributedTransaction(context);
 
-            ConcurrencyToken(context);
+            // ConcurrencyToken(context);
 
+             // BatchUpdateCustomers(context);
+
+
+            // AddCustomers(context);
+
+        }
+
+        private static void BatchUpdateCustomers(ShopContext context)
+        {
+            var customers = context.Customers.Take(1000).ToList();
+
+            foreach (var customer in customers)
+            {
+                customer.Credit += 500;
+            }
+
+           // context.Customers.UpdateRange(customers);
+
+            context.SaveChanges();
         }
 
         private static void ConcurrencyToken(ShopContext context)
@@ -502,7 +521,7 @@ namespace Vavatech.EFCore.ConsoleClient
 
             Faker<Customer> customerFaker = new CustomerFaker(new AddressFaker(), new CoordinateFaker());
 
-            var customers = customerFaker.GenerateLazy(100);
+            var customers = customerFaker.GenerateLazy(100_000);
 
             customerRepository.AddRange(customers);
         }
