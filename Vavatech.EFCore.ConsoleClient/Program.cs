@@ -83,8 +83,17 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // AddCustomers(context);
 
-            GetCustomersBySearchCriteria(context);
+            // GetCustomersBySearchCriteria(context);
 
+            GetProductsByColors(context);
+
+        }
+
+        private static void GetProductsByColors(ShopContext context)
+        {
+            IProductRepository productRepository = new DbProductRepository(context);
+
+            var products = productRepository.GetByColors("gold", "purple", "violet");
         }
 
         private static void GetCustomersBySearchCriteria(ShopContext context)

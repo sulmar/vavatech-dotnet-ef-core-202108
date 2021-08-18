@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using LinqKit;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Sulmar.EFCore.Models;
 using System;
@@ -27,6 +28,21 @@ namespace Vavatech.EFCore.DbRepositories
             var colorParameter = new SqlParameter("Color", color);
 
             return context.Products.FromSqlRaw("EXECUTE uspGetProductsByColor @Color", colorParameter).ToList();
+        }
+
+        // Predicate Builder
+        // http://www.albahari.com/nutshell/predicatebuilder.aspx
+        // dotnet add package LinqKit.Microsoft.EntityFrameworkCore
+        public IEnumerable<Product> GetByColors(params string[] colors)
+        {
+            var predicate = PredicateBuilder.New<Product>();
+
+            foreach (var color in colors)
+            {
+                predicate = predicate.Or(p => p.Color == color);
+            }
+
+            return context.Products.AsExpandable().Where(predicate).ToList();
         }
     }
 }

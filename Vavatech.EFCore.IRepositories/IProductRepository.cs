@@ -6,5 +6,7 @@ namespace Vavatech.EFCore.IRepositories
     public interface IProductRepository : IEntityRepository<Product>
     {
         IEnumerable<Product> GetByColor(string color);
+
+        IEnumerable<Product> GetByColors(params string[] colors);
     }
 }
