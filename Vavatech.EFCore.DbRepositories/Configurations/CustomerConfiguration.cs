@@ -19,8 +19,19 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
         {
             builder.OwnsOne(p => p.InvoiceAddress);
             builder.OwnsOne(p => p.ShipAddress);
-            builder.Property(p => p.FirstName).HasMaxLength(50).IsRequired();
-            builder.Property(p => p.LastName).HasMaxLength(50).IsRequired();
+            builder.Property(p => p.FirstName)
+                .HasMaxLength(50)
+                .IsRequired()
+                .IsConcurrencyToken();
+                
+            
+            
+            builder.Property(p => p.LastName)
+                .HasMaxLength(50)
+                .IsRequired()
+                .IsConcurrencyToken();
+
+
             builder.Property(p => p.Pesel).IsRequired().HasMaxLength(11).IsFixedLength().IsUnicode(false);
 
             builder.Property(p => p.Nickname).IsRequired().HasMaxLength(50);

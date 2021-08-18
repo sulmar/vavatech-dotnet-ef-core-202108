@@ -10,6 +10,7 @@ using System.Text.Json;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Transactions;
+using System.Threading;
 
 namespace Vavatech.EFCore.ConsoleClient
 {
@@ -73,6 +74,44 @@ namespace Vavatech.EFCore.ConsoleClient
             // NativeTransaction(context);
 
             // DistributedTransaction(context);
+
+            ConcurrencyToken(context);
+
+        }
+
+        private static void ConcurrencyToken(ShopContext context)
+        {
+            ShopContextFactory shopContextFactory = new ShopContextFactory();
+
+            ShopContext user1Context = shopContextFactory.CreateDbContext(null);
+            ShopContext user2Context = shopContextFactory.CreateDbContext(null);
+
+            int customerId = 2;
+
+            try
+            {
+                Customer customer1 = user1Context.Customers.Find(customerId);
+                customer1.LastName = "Spider";
+
+                Customer customer2 = user2Context.Customers.Find(customerId);
+                customer2.LastName = "Sky";
+
+                user2Context.SaveChanges();
+
+                user1Context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {               
+                Console.WriteLine("Klient został w międzyczasie zmodyfikowany!");
+
+                var entry = e.Entries.First();
+
+                entry.Reload();
+
+                Customer customer = (Customer)entry.Entity;
+
+                Console.WriteLine($"Obecnie nazywa się {customer.LastName}");
+            }
 
         }
 
