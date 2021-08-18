@@ -19,6 +19,7 @@ namespace Sulmar.EFCore.Models
         public Address InvoiceAddress { get; set; }
         public Address ShipAddress { get; set; }
         public virtual IEnumerable<Order> Orders { get; set; }
+        public decimal Credit { get; set; }
         public virtual LoyaltyCard LoyaltyCard { get; set; }
         public virtual IEnumerable<CustomerGroup> CustomerGroups
         {

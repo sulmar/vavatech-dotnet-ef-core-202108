@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Transactions;
 
 namespace Vavatech.EFCore.ConsoleClient
 {
@@ -66,9 +67,89 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // GetCustomersByAge(context);
 
+            // DbFunctionTest(context);
 
-            DbFunctionTest(context);
 
+            // NativeTransaction(context);
+
+            // DistributedTransaction(context);
+
+        }
+
+        private static void DistributedTransaction(ShopContext context)
+        {
+            decimal amount = 50;
+
+            ShopContextFactory shopContextFactory = new ShopContextFactory();
+
+            ShopContext senderContext = shopContextFactory.CreateDbContext(null);
+            ShopContext recipientContext = shopContextFactory.CreateDbContext(null);
+
+            try
+            {
+                // using System.Transaction
+                using (var transaction = new TransactionScope())
+                {
+                    var sender = senderContext.Customers.Find(2);
+                    sender.Credit -= amount;
+                    senderContext.SaveChanges();
+                    Console.WriteLine("Transakcja wychodząca");
+
+                    var recipient = recipientContext.Customers.Find(3);
+                    recipient.Credit += amount;
+
+                    recipientContext.SaveChanges();
+                    Console.WriteLine("Transakcja przychodząca");
+
+                    transaction.Complete();   // To Commit
+                
+                } // ->  COMMIT
+
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Wycofano transakcję.");
+            }
+
+        }
+
+        // Poziomy izolacji
+        // https://docs.microsoft.com/en-us/sql/connect/jdbc/understanding-isolation-levels?view=sql-server-ver15#remarks
+        private static void NativeTransaction(ShopContext context)
+        {
+            decimal amount = 50;
+
+            using (var transaction = context.Database.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted)) // BEGIN TRAN
+            {
+                try
+                {
+                    var sender = context.Customers.Find(2);
+                    sender.Credit -= amount;
+                    context.SaveChanges();
+                    Console.WriteLine("Transakcja wychodząca");
+
+                    var recipient = context.Customers.Find(999);
+                    recipient.Credit += amount;
+
+                    context.SaveChanges();
+                    transaction.CreateSavepoint("TransakcjaWychodzaca"); // EF Core 5
+
+                    Console.WriteLine("Transakcja przychodząca");
+
+                    transaction.Commit(); // COMMIT
+
+                    Console.WriteLine("Zatwierdzono transakcję.");
+                }
+                catch (Exception e)
+                {
+                    // transaction.Rollback(); // ROLLBACK
+                    transaction.RollbackToSavepoint("TransakcjaWychodzaca"); // EF Core 5
+
+                    Console.WriteLine("Wycofano transakcję.");
+                    
+                }
+            }
         }
 
         private static void DbFunctionTest(ShopContext context)
@@ -103,12 +184,12 @@ namespace Vavatech.EFCore.ConsoleClient
 
             var nonActiveCustomers = allCustomers.Except(activeCustomers).ToList();
 
-            if (nonActiveCustomers.All(p=>p.IsRemoved==true))
+            if (nonActiveCustomers.All(p => p.IsRemoved == true))
             {
 
-            }            
+            }
 
-            if (privatesCustomers.Any(p=>p.ShipAddress.Country == "USA"))
+            if (privatesCustomers.Any(p => p.ShipAddress.Country == "USA"))
             {
 
             }
@@ -309,7 +390,7 @@ namespace Vavatech.EFCore.ConsoleClient
             Customer customer = customerRepository.Get(11);
 
             customer.DateOfBirth = customer.DateOfBirth.Value.AddDays(1);
-            
+
             customerRepository.Update(customer);
         }
 
@@ -352,7 +433,7 @@ namespace Vavatech.EFCore.ConsoleClient
 
             var customer = customerRepository.GetByPesel(pesel);
 
-            if (customer!=null)
+            if (customer != null)
             {
 
             }
@@ -365,7 +446,7 @@ namespace Vavatech.EFCore.ConsoleClient
 
             var customers = customerRepository.Get();
 
-            if (customers.All(p=>!p.IsRemoved))
+            if (customers.All(p => !p.IsRemoved))
             {
 
             }
@@ -395,6 +476,6 @@ namespace Vavatech.EFCore.ConsoleClient
             Console.WriteLine("Created.");
         }
 
-       
+
     }
 }

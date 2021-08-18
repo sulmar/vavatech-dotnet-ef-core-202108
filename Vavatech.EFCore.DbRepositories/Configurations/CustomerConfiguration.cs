@@ -71,6 +71,9 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
                 .ValueGeneratedOnUpdate();
 
 
+            builder.Property(p => p.Credit).HasDefaultValue(100);
+
+
         }
     }
 
