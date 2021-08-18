@@ -24,6 +24,8 @@ namespace Vavatech.EFCore.ConsoleClient
 
             Setup(context);
 
+            RemoveCustomer(context);
+
             // AddCustomer(context);
 
             UpdateCustomer(context);
@@ -216,7 +218,7 @@ namespace Vavatech.EFCore.ConsoleClient
         {
             ICustomerRepository customerRepository = new DbCustomerRepository(context);
 
-            int customerId = 99;
+            int customerId = 31;
 
             customerRepository.Remove(customerId);
         }

@@ -78,7 +78,7 @@ namespace Vavatech.EFCore.DbRepositories
         //    Debug.WriteLine(context.Entry(customer).State);
         //}
 
-        public void Remove(int id)
+        public void Remove2(int id)
         {
             Customer customer = new Customer { Id = id };
             Debug.WriteLine(context.Entry(customer).State);
@@ -88,6 +88,12 @@ namespace Vavatech.EFCore.DbRepositories
 
             context.SaveChanges();
             Debug.WriteLine(context.Entry(customer).State);
+        }
+
+        public void Remove(int id)
+        {
+            context.Customers.Remove(id);
+            context.SaveChanges();
         }
 
         public void Update(Customer customer)
@@ -114,6 +120,8 @@ namespace Vavatech.EFCore.DbRepositories
             context.SaveChanges();
 
             Debug.WriteLine(context.Entry(customer).State);
+
+            
         }
     }
 }
