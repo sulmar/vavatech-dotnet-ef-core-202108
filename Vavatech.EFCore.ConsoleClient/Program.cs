@@ -83,10 +83,49 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // AddCustomers(context);
 
-            // GetCustomersBySearchCriteria(context);
 
-            GetProductsByColors(context);
 
+            // GetProductsByColors(context);
+
+            //ChangeTrackerTracked(context);
+
+            //GetCustomersBySearchCriteria(context);
+
+            //AddCustomer(context);
+
+            ChangeTrackerStateChanged(context);
+
+        }
+
+        private static void ChangeTrackerStateChanged(ShopContext context)
+        {
+            context.ChangeTracker.StateChanged += ChangeTracker_StateChanged;
+        }
+
+        private static void ChangeTracker_StateChanged(object sender, Microsoft.EntityFrameworkCore.ChangeTracking.EntityStateChangedEventArgs e)
+        {
+            if (e.NewState == EntityState.Modified && e.Entry.Entity is BaseEntity entity)
+            {
+                entity.ModifiedOn = DateTime.Now;
+            }
+        }
+
+        private static void ChangeTrackerTracked(ShopContext context)
+        {
+            context.ChangeTracker.Tracked += ChangeTracker_Tracked;
+        }
+
+        private static void ChangeTracker_Tracked(object sender, Microsoft.EntityFrameworkCore.ChangeTracking.EntityTrackedEventArgs e)
+        {
+            if (e.FromQuery && e.Entry.Entity is Customer customer)
+            {
+                customer.Pesel = customer.Pesel.Replace('0', '*');
+            }
+
+            if (!e.FromQuery && e.Entry.State == EntityState.Added && e.Entry.Entity is BaseEntity entity)
+            {
+                entity.CreatedOn = DateTime.Now;
+            }
         }
 
         private static void GetProductsByColors(ShopContext context)
@@ -103,6 +142,8 @@ namespace Vavatech.EFCore.ConsoleClient
             ICustomerRepository customerRepository = new DbCustomerRepository(context);
 
             var customers = customerRepository.Get(searchCriteria);
+
+            var e = context.ChangeTracker.Entries();
 
         }
 
