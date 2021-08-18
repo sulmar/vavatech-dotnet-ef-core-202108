@@ -21,8 +21,10 @@ namespace Vavatech.EFCore.ConsoleClient
             // dotnet add package Microsoft.EntityFrameworkCore.SqlServer
             DbContextOptions options = new DbContextOptionsBuilder<ShopContext>()
                 .UseSqlServer(connectionString)
+                .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
                 // .UseLazyLoadingProxies()
                 //.AddInterceptors(new ModifyDateSaveChangesInterceptor())
+                .AddInterceptors(new LoggerCommandInterceptor())
                 .Options;
 
             ShopContext context = new ShopContext(options);
