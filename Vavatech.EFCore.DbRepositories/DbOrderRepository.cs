@@ -129,9 +129,9 @@ namespace Vavatech.EFCore.DbRepositories
             throw new NotImplementedException();
         }
 
-       
-
-
-        
+        public IEnumerable<CustomerTotalAmount> GetTotalAmountByCustomer()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

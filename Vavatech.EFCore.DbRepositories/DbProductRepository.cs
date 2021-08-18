@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Sulmar.EFCore.Models;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,13 @@ namespace Vavatech.EFCore.DbRepositories
         public override IEnumerable<Product> Get()
         {
             return context.Products.AsNoTracking().ToList();
+        }
+
+        public IEnumerable<Product> GetByColor(string color)
+        {
+            var colorParameter = new SqlParameter("Color", color);
+
+            return context.Products.FromSqlRaw("EXECUTE uspGetProductsByColor @Color", colorParameter).ToList();
         }
     }
 }

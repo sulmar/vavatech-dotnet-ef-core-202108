@@ -60,7 +60,25 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // GroupByCustomer(context);
 
-            LinqSets(context);
+            // LinqSets(context);
+
+            // GetProductsByColor(context);
+
+            GetCustomersByAge(context);
+
+        }
+
+        private static void GetProductsByColor(ShopContext context)
+        {
+            IProductRepository productRepository = new DbProductRepository(context);
+            var products = productRepository.GetByColor("gold");
+        }
+
+        private static void GetCustomersByAge(ShopContext context)
+        {
+            ICustomerRepository customerRepository = new DbCustomerRepository(context);
+
+            var customers = customerRepository.GetByAge(60);
 
         }
 

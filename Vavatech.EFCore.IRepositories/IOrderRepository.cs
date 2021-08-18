@@ -13,5 +13,7 @@ namespace Vavatech.EFCore.IRepositories
         IEnumerable<Order> GetByCustomer(int customerId);
 
         IEnumerable<Order> Get();
+
+        IEnumerable<CustomerTotalAmount> GetTotalAmountByCustomer();
     }
 }

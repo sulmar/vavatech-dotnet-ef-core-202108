@@ -8,5 +8,7 @@ namespace Vavatech.EFCore.IRepositories
     {
         Customer GetByPesel(string pesel);
         void UpdateDateOfBirth(Customer customer);
+
+        IEnumerable<Customer> GetByAge(int age);
     }
 }

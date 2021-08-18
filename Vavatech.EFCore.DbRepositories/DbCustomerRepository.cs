@@ -5,6 +5,7 @@ using Vavatech.EFCore.IRepositories;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using Microsoft.Data.SqlClient;
 
 namespace Vavatech.EFCore.DbRepositories
 {
@@ -121,7 +122,39 @@ namespace Vavatech.EFCore.DbRepositories
 
             Debug.WriteLine(context.Entry(customer).State);
 
-            
+        }
+
+        public IEnumerable<Customer> GetByAge(int age)
+        {
+            //return context.Customers.FromSqlRaw("SELECT * FROM Customers WHERE year(getdate()) - year(DateOfBirth) > {0}", age)
+            //    .Where(p => !p.IsRemoved)
+            //    .OrderBy(p => p.DateOfBirth)
+            //    .ToList();
+
+
+            // Jawne przekazanie parametru
+            //var ageParameter = new SqlParameter("age", age);            
+
+            //return context.Customers.FromSqlRaw("SELECT * FROM Customers WHERE year(getdate()) - year(DateOfBirth) > @age", ageParameter)
+            //    .Where(p => !p.IsRemoved)
+            //    .OrderBy(p => p.DateOfBirth)
+            //    .ToList();
+
+
+            // Interpolacja
+            return context.Customers.FromSqlInterpolated($"SELECT * FROM Customers WHERE year(getdate()) - year(DateOfBirth) > {age}")
+                .Where(p => !p.IsRemoved)
+                .OrderBy(p => p.DateOfBirth)
+                .ToList();
+
+            //var ageParameter = new SqlParameter("age", age); 
+
+            //return context.Customers.FromSqlRaw("EXECUTE dbo.uspGetCustomersByAge {0}", age)
+            //    //.Where(p => !p.IsRemoved)
+            //    //.OrderBy(p => p.DateOfBirth)
+            //    .ToList();
+
+
         }
     }
 }
