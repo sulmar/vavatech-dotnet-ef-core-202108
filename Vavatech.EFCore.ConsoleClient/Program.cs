@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Transactions;
 using System.Threading;
+using Sulmar.EFCore.Models.SearchCriterias;
 
 namespace Vavatech.EFCore.ConsoleClient
 {
@@ -77,10 +78,22 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // ConcurrencyToken(context);
 
-             // BatchUpdateCustomers(context);
+            // BatchUpdateCustomers(context);
 
 
             // AddCustomers(context);
+
+            GetCustomersBySearchCriteria(context);
+
+        }
+
+        private static void GetCustomersBySearchCriteria(ShopContext context)
+        {
+            var searchCriteria = new CustomerSearchCriteria { CreditFrom = 120, CreditTo = 500 };
+
+            ICustomerRepository customerRepository = new DbCustomerRepository(context);
+
+            var customers = customerRepository.Get(searchCriteria);
 
         }
 

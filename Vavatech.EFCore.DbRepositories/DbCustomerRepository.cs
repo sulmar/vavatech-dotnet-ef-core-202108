@@ -6,6 +6,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Microsoft.Data.SqlClient;
+using Sulmar.EFCore.Models.SearchCriterias;
 
 namespace Vavatech.EFCore.DbRepositories
 {
@@ -156,5 +157,53 @@ namespace Vavatech.EFCore.DbRepositories
 
 
         }
+
+        // zła praktyka
+        //public IEnumerable<Customer> Get(string firstName, string lastName, DateTime? dateOfBirthFrom, DateTime? dateOfBirthTo, decimal? creditFrom, decimal? creditTo)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+
+        public IEnumerable<Customer> Get(CustomerSearchCriteria searchCriteria)
+        {
+            var query = context.Customers.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchCriteria.FirstName))
+            {
+                query = query.Where(c => c.FirstName == searchCriteria.FirstName);
+            }
+
+            if (!string.IsNullOrEmpty(searchCriteria.LastName))
+            {
+                query = query.Where(c => c.LastName == searchCriteria.LastName);
+            }
+
+            if (searchCriteria.DateOfBirthFrom.HasValue)
+            {
+                query = query.Where(c => c.DateOfBirth >= searchCriteria.DateOfBirthFrom.Value);
+            }
+
+            if (searchCriteria.DateOfBirthTo.HasValue)
+            {
+                query = query.Where(c => c.DateOfBirth <= searchCriteria.DateOfBirthTo.Value);
+            }
+
+            if (searchCriteria.CreditFrom.HasValue)
+            {
+                query = query.Where(c => c.Credit >= searchCriteria.CreditFrom.Value);
+            }
+
+            if (searchCriteria.CreditTo.HasValue)
+            {
+                query = query.Where(c => c.Credit <= searchCriteria.CreditTo.Value);
+            }
+
+            return query.ToList(); // strzał do bazy danych
+
+        }
+
+
+
     }
 }
