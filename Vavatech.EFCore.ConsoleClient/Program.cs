@@ -24,11 +24,11 @@ namespace Vavatech.EFCore.ConsoleClient
 
             Setup(context);
 
-            RemoveCustomer(context);
+            //   RemoveCustomer(context);
 
             // AddCustomer(context);
 
-            UpdateCustomer(context);
+            // UpdateCustomer(context);
 
             // RemoveCustomer(context);
 
@@ -36,7 +36,7 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // AddCustomers(context);
 
-           // GetCustomers(context);
+            // GetCustomers(context);
 
             //GetCustomer(context);
 
@@ -58,7 +58,58 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // GetOrders(context);
 
-            
+            // GroupByCustomer(context);
+
+            LinqSets(context);
+
+        }
+
+        private static void LinqSets(ShopContext context)
+        {
+            var privatesCustomers = context.Customers.IgnoreQueryFilters().Where(c => c.CustomerType == CustomerType.Private);
+            var companiesCustomers = context.Customers.IgnoreQueryFilters().Where(c => c.CustomerType == CustomerType.Company);
+
+            var allCustomers = privatesCustomers.Concat(companiesCustomers);
+
+            var activeCustomers = context.Customers.Where(c => !c.IsRemoved);
+
+            var nonActiveCustomers = allCustomers.Except(activeCustomers).ToList();
+
+            if (nonActiveCustomers.All(p=>p.IsRemoved==true))
+            {
+
+            }            
+
+            if (privatesCustomers.Any(p=>p.ShipAddress.Country == "USA"))
+            {
+
+            }
+
+        }
+
+        private static void GroupByCustomer(ShopContext context)
+        {
+            // po stronie klienta
+            var query = context.Customers
+                .AsEnumerable()
+                .GroupBy(c => c.CustomerType)
+                .Select(g => new { CustomerType = g.Key, g })
+                .ToList();
+
+
+            // po stronie serwera
+            var query2 = context.Customers
+               .GroupBy(c => c.CustomerType)
+               .Select(g => new { CustomerType = g.Key, Qty = g.Count() })
+               .ToList();
+
+            // po stronie klienta
+
+            var query3 = context.Orders
+                .AsEnumerable()
+                .GroupBy(o => o.Customer)
+                .Select(g => new { Customer = g.Key, TotalAmount = g.Sum(p => p.TotalAmount) })
+                .ToList();
 
         }
 
