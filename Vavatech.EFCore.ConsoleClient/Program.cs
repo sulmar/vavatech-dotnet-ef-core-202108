@@ -64,8 +64,18 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // GetProductsByColor(context);
 
-            GetCustomersByAge(context);
+            // GetCustomersByAge(context);
 
+
+            DbFunctionTest(context);
+
+        }
+
+        private static void DbFunctionTest(ShopContext context)
+        {
+            var customers = context.Customers
+                .Where(c => context.CalculateAge(c.DateOfBirth.Value) > 60)
+                .ToList();
         }
 
         private static void GetProductsByColor(ShopContext context)

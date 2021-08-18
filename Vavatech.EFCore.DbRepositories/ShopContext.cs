@@ -45,9 +45,14 @@ namespace Vavatech.EFCore.DbRepositories
 
         public DbSet<Attachment> Attachments { get; set; }
 
+        public int CalculateAge(DateTime dateTime) => throw new NotSupportedException();
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.HasDbFunction(typeof(ShopContext).GetMethod(nameof(CalculateAge), new[] { typeof(DateTime) })).HasName("GetAge");
+
 
             // Owned Entities (https://docs.microsoft.com/en-us/ef/core/modeling/owned-entities)
             //modelBuilder.Entity<Customer>().OwnsOne(p => p.InvoiceAddress);
