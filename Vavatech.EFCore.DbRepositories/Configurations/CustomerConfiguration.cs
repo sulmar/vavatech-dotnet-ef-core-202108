@@ -22,13 +22,17 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
             builder.Property(p => p.FirstName)
                 .HasMaxLength(50)
                 .IsRequired()
-                .IsConcurrencyToken();
-                
-            
+                // .IsConcurrencyToken()
+                ;
             
             builder.Property(p => p.LastName)
                 .HasMaxLength(50)
                 .IsRequired()
+                // .IsConcurrencyToken()
+                ;
+
+            builder.Property(p => p.Version)
+                .IsRowVersion()
                 .IsConcurrencyToken();
 
 

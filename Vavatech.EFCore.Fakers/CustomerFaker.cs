@@ -38,6 +38,10 @@ namespace Vavatech.EFCore.Fakers
             RuleFor(p => p.ShipAddress, f => addressFaker.Generate());
 
             RuleFor(p => p.Location, f => coordinateFaker.Generate());
+
+            RuleFor(p => p.Credit, f => f.Random.Decimal(0, 1000));
+
+            Ignore(p => p.Version);
         }
     }
 
