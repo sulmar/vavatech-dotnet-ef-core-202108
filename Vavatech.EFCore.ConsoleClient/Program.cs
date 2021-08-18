@@ -114,6 +114,9 @@ namespace Vavatech.EFCore.ConsoleClient
 
         }
 
+        // Transakcje
+        // https://docs.microsoft.com/pl-pl/ef/core/saving/transactions
+
         // Poziomy izolacji
         // https://docs.microsoft.com/en-us/sql/connect/jdbc/understanding-isolation-levels?view=sql-server-ver15#remarks
         private static void NativeTransaction(ShopContext context)
