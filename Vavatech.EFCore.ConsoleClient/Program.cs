@@ -51,7 +51,7 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // AddDetachedOrder(context);
 
-            // GetProducts(context);
+            GetProducts(context);
 
             // UpdateByINotifyPropertyChangedCustomer(context);
 
@@ -113,7 +113,9 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // MetadataContext(context);
 
-            GetFullNameCustomers(context);
+            // GetFullNameCustomers(context);
+
+            GetProductsAndServices(context);
 
         }
 
@@ -554,6 +556,12 @@ namespace Vavatech.EFCore.ConsoleClient
 
 
         //}
+
+
+        private static void GetProductsAndServices(ShopContext context)
+        {
+            var items = context.Products.AsEnumerable().OfType<Item>().Concat(context.Services).ToList();
+        }
 
         private static void GetProducts(ShopContext context)
         {
