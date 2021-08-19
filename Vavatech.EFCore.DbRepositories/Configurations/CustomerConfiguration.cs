@@ -91,6 +91,8 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
 
             builder.Property<DateTime>("LastLogin");
 
+            builder.Navigation(p => p.Orders).AutoInclude();
+
         }
     }
 
