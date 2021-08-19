@@ -17,4 +17,24 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
             builder.ToTable("Items");
         }
     }
+
+    // TPT (Table Per Type)
+    public class ProductConfiguration : IEntityTypeConfiguration<Product>
+    {
+        public void Configure(EntityTypeBuilder<Product> builder)
+        {
+            builder.ToTable("Products");
+        }
+    }
+
+
+    public class ServiceConfiguration : IEntityTypeConfiguration<Service>
+    {
+        public void Configure(EntityTypeBuilder<Service> builder)
+        {
+            builder.ToTable("Services");
+        }
+    }
+
+
 }
