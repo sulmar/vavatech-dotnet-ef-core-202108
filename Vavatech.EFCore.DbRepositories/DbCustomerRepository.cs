@@ -203,7 +203,24 @@ namespace Vavatech.EFCore.DbRepositories
 
         }
 
+        // Mapowania funkcji dostawcy Microsoft SQL Server danych
+        // https://docs.microsoft.com/pl-pl/ef/core/providers/sql-server/functions
 
+        public IEnumerable<Customer> GetByFirstName(int lenght)
+        {
+            // return context.Customers.Where(c => c.FirstName.Length > lenght).ToList();
 
+            // return context.Customers.FromSqlInterpolated($"SELECT * FROM dbo.Customers WHERE DATALENGTH(FirstName) > {lenght}").ToList();
+
+            return context.Customers.Where(c => EF.Functions.DataLength(c.FirstName) > lenght).ToList();
+
+            // return context.Customers.AsEnumerable().Where(c => Extract(c.FirstName) == "h").ToList();
+
+            // return context.Customers.Where(c => c.FirstName.Substring(0, 1) == "C").ToList();
+
+           
+        }
+
+        
     }
 }

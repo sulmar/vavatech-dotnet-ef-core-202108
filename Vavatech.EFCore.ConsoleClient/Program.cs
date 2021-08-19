@@ -93,8 +93,17 @@ namespace Vavatech.EFCore.ConsoleClient
 
             //AddCustomer(context);
 
-            ChangeTrackerStateChanged(context);
+            // ChangeTrackerStateChanged(context);
 
+            GetCustomersByFirstName(context);
+
+        }
+
+        private static void GetCustomersByFirstName(ShopContext context)
+        {
+            ICustomerRepository customerRepository = new DbCustomerRepository(context);
+
+            var customers = customerRepository.GetByFirstName(10);  
         }
 
         private static void ChangeTrackerStateChanged(ShopContext context)

@@ -15,5 +15,7 @@ namespace Vavatech.EFCore.IRepositories
         // IEnumerable<Customer> Get(string firstName, string lastName, DateTime? dateOfBirthFrom, DateTime? dateOfBirthTo, decimal? creditFrom, decimal? creditTo, bool? isRemoved);
 
         IEnumerable<Customer> Get(CustomerSearchCriteria searchCriteria);
+
+        IEnumerable<Customer> GetByFirstName(int lenght);
     }
 }
