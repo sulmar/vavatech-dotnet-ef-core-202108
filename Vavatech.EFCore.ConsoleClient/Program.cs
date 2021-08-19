@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Transactions;
 using System.Threading;
 using Sulmar.EFCore.Models.SearchCriterias;
+using static Microsoft.EntityFrameworkCore.EF;
 
 namespace Vavatech.EFCore.ConsoleClient
 {
@@ -102,7 +103,28 @@ namespace Vavatech.EFCore.ConsoleClient
 
             //GetTotalAmountByCountryByYear(context);
 
-            OuterApplyTest(context);
+            // OuterApplyTest(context);
+
+            ShadowPropertyTest(context);
+
+        }
+
+        private static void ShadowPropertyTest(ShopContext context)
+        {
+            var customer = context.Customers.IgnoreQueryFilters().SingleOrDefault(p=>p.Id== 103);
+
+            context.Entry(customer).Property("LastLogin").CurrentValue = DateTime.Now;
+
+            context.SaveChanges();
+
+            var lastLogin = context.Entry(customer).Property("LastLogin").CurrentValue;
+
+            Console.WriteLine(lastLogin);
+
+            // query
+
+            var customers = context.Customers.OrderBy(c => Property<DateTime>(c, "LastLogin"))
+                .ToList();
 
         }
 

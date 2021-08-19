@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vavatech.EFCore.DbRepositories;
 
 namespace Vavatech.EFCore.DbRepositories.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20210819094228_AddVersionToOrder")]
+    partial class AddVersionToOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,9 +175,6 @@ namespace Vavatech.EFCore.DbRepositories.Migrations
 
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastLogin")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
                         .IsRequired()

@@ -89,6 +89,8 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
             builder.Property(p => p.Credit).HasDefaultValue(100);
 
 
+            builder.Property<DateTime>("LastLogin");
+
         }
     }
 

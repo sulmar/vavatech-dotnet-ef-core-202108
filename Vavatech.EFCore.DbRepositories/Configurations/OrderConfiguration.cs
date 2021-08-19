@@ -27,6 +27,9 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
                 .WithOne(p => p.Order)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
+
+
+            builder.Property<byte[]>("Version").IsRowVersion().IsConcurrencyToken();
         }
     }
 }
