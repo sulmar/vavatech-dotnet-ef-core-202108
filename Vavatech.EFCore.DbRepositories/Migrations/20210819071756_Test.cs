@@ -2,16 +2,16 @@
 
 namespace Vavatech.EFCore.DbRepositories.Migrations
 {
-    public partial class AddCountCustomers : Migration
+    public partial class Test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.SqlResource("script1.sql");
+            migrationBuilder.SqlResource("Lorem.sql");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DROP FUNCTION dbo.CountCustomers");
+
         }
     }
 }
