@@ -97,11 +97,30 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // GetCustomersByFirstName(context);
 
-            GetTotalAmountCountries(context);
+            //GetTotalAmountCountries(context);
 
 
-            GetTotalAmountByCountryByYear(context);
+            //GetTotalAmountByCountryByYear(context);
 
+            OuterApplyTest(context);
+
+        }
+
+        private static void OuterApplyTest(ShopContext context)
+        {
+            // CROSS APPLY
+            var query1 =
+                        (from c in context.Customers
+                         from t in context.GetTotalAmountByCountry(c.CreatedOn.Year)
+                         select new { c.FirstName, t.Country })
+                        .ToList();
+
+            // OUTER APPLY
+            var query2 = 
+                        (from c in context.Customers
+                        from t in context.GetTotalAmountByCountry(c.CreatedOn.Year).DefaultIfEmpty()
+                        select new { c.FirstName, t.Country })
+                        .ToList();
         }
 
         private static void GetTotalAmountByCountryByYear(ShopContext context)
