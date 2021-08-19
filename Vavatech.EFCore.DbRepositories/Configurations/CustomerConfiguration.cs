@@ -97,6 +97,15 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
             // Kolumny obliczane (Computed column)
             builder.Property(p => p.FullName)
                 .HasComputedColumnSql("[FirstName] + ' ' + [LastName]", stored: true);
+
+            builder
+                .HasIndex(p => p.Pesel)
+                .IsUnique()
+                .IncludeProperties( p => new { p.FirstName, p.LastName });
+
+            builder
+                .HasIndex(p => new { p.FirstName, p.LastName });
+
         }
     }
 
