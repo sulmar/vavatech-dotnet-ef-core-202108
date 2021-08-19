@@ -107,8 +107,35 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // ShadowPropertyTest(context);
 
-             AutoIncludeTest(context);
+            // AutoIncludeTest(context);
 
+            SavingChangesOnContext(context);
+
+        }
+
+        private static void SavingChangesOnContext(ShopContext context)
+        {
+            context.SavingChanges += (sender, args) =>
+            {
+                Console.WriteLine($"Saving changes for {((DbContext)sender)?.Database.GetConnectionString()}");
+            };
+
+            context.SavedChanges += (sender, args) =>
+            {
+                Console.WriteLine($"Saved {args.EntitiesSavedCount} changes for {((DbContext)sender)?.Database.GetConnectionString()}");
+            };
+
+            context.SaveChangesFailed += (sender, args) =>
+            {
+                Console.WriteLine($"Save changes failed {args.Exception}");
+            };
+
+
+            var customer = context.Customers.Find(11);
+
+            customer.Credit += 100;
+
+            context.SaveChanges();
         }
 
         private static void AutoIncludeTest(ShopContext context)
@@ -121,7 +148,7 @@ namespace Vavatech.EFCore.ConsoleClient
 
         private static void ShadowPropertyTest(ShopContext context)
         {
-            var customer = context.Customers.IgnoreQueryFilters().SingleOrDefault(p=>p.Id== 103);
+            var customer = context.Customers.IgnoreQueryFilters().SingleOrDefault(p => p.Id == 103);
 
             context.Entry(customer).Property("LastLogin").CurrentValue = DateTime.Now;
 
@@ -148,10 +175,10 @@ namespace Vavatech.EFCore.ConsoleClient
                         .ToList();
 
             // OUTER APPLY
-            var query2 = 
+            var query2 =
                         (from c in context.Customers
-                        from t in context.GetTotalAmountByCountry(c.CreatedOn.Year).DefaultIfEmpty()
-                        select new { c.FirstName, t.Country })
+                         from t in context.GetTotalAmountByCountry(c.CreatedOn.Year).DefaultIfEmpty()
+                         select new { c.FirstName, t.Country })
                         .ToList();
         }
 
@@ -173,7 +200,7 @@ namespace Vavatech.EFCore.ConsoleClient
         {
             ICustomerRepository customerRepository = new DbCustomerRepository(context);
 
-            var customers = customerRepository.GetByFirstName(10);  
+            var customers = customerRepository.GetByFirstName(10);
         }
 
         private static void ChangeTrackerStateChanged(ShopContext context)
@@ -235,7 +262,7 @@ namespace Vavatech.EFCore.ConsoleClient
                 customer.Credit += 500;
             }
 
-           // context.Customers.UpdateRange(customers);
+            // context.Customers.UpdateRange(customers);
 
             context.SaveChanges();
         }
@@ -262,7 +289,7 @@ namespace Vavatech.EFCore.ConsoleClient
                 user1Context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException e)
-            {               
+            {
                 Console.WriteLine("Klient został w międzyczasie zmodyfikowany!");
 
                 var entry = e.Entries.First();
@@ -302,7 +329,7 @@ namespace Vavatech.EFCore.ConsoleClient
                     Console.WriteLine("Transakcja przychodząca");
 
                     transaction.Complete();   // To Commit
-                
+
                 } // ->  COMMIT
 
             }
@@ -350,7 +377,7 @@ namespace Vavatech.EFCore.ConsoleClient
                     transaction.RollbackToSavepoint("TransakcjaWychodzaca"); // EF Core 5
 
                     Console.WriteLine("Wycofano transakcję.");
-                    
+
                 }
             }
         }
