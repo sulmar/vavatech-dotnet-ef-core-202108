@@ -113,8 +113,9 @@ namespace Vavatech.EFCore.ConsoleClient
 
         private static void AutoIncludeTest(ShopContext context)
         {
-           // var customer = context.Customers.SingleOrDefault(p=>p.Id == 11);
+            // var customer = context.Customers.SingleOrDefault(p=>p.Id == 11);
 
+            // EF Core 5
             var customer2 = context.Customers.IgnoreAutoIncludes().SingleOrDefault(p => p.Id == 11);
         }
 

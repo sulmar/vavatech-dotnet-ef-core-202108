@@ -12,6 +12,9 @@ namespace Vavatech.EFCore.DbRepositories.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql("DROP VIEW dbo.vwTotalAmountByCountry");
+            
+            //migrationBuilder.DropView(string name, string schema = null);
+            //migrationBuilder.DropFunction
         }
     }
 }

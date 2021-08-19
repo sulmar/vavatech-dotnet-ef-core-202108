@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace Vavatech.EFCore.ConsoleClient
                 // .UseLazyLoadingProxies()
                 //.AddInterceptors(new ModifyDateSaveChangesInterceptor())
                 .AddInterceptors(new LoggerCommandInterceptor())
+                .ReplaceService<IMigrationsSqlGenerator, MyMigrationsSqlGenerator>()
                 .Options;
 
             ShopContext context = new ShopContext(options);
