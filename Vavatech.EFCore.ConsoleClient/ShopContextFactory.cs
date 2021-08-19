@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vavatech.EFCore.DbRepositories;
+using Vavatech.EFCore.DbRepositories.Interceptors;
 
 namespace Vavatech.EFCore.ConsoleClient
 {
@@ -29,6 +30,7 @@ namespace Vavatech.EFCore.ConsoleClient
                 // .UseLazyLoadingProxies()
                 //.AddInterceptors(new ModifyDateSaveChangesInterceptor())
                 .AddInterceptors(new LoggerCommandInterceptor())
+                .AddInterceptors(new LoggingSavingChangesInterceptor())
                 .ReplaceService<IMigrationsSqlGenerator, MyMigrationsSqlGenerator>()
                 .Options;
 
