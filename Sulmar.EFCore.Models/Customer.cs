@@ -11,7 +11,7 @@ namespace Sulmar.EFCore.Models
         public string Nickname { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string FullName => $"{FirstName} {LastName}";
+        public string FullName { get; set; }
         public string Pesel { get; set; }
         public CustomerType CustomerType { get; set; }
         public byte[] Avatar { get; set; }

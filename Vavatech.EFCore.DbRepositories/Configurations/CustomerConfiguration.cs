@@ -94,6 +94,9 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
             // EF Core 5
             builder.Navigation(p => p.Orders).AutoInclude();
 
+            // Kolumny obliczane (Computed column)
+            builder.Property(p => p.FullName)
+                .HasComputedColumnSql("[FirstName] + ' ' + [LastName]", stored: true);
         }
     }
 

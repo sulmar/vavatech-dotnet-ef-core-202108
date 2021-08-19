@@ -111,8 +111,20 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // SavingChangesOnContext(context);
 
-            MetadataContext(context);
+            // MetadataContext(context);
 
+            GetFullNameCustomers(context);
+
+        }
+
+        private static void GetFullNameCustomers(ShopContext context)
+        {
+            var customers = context.Customers
+                .Take(100)
+                .OrderBy(c=>c.Id)
+                .Select(c => new { c.Id, c.FullName}).ToList();
+
+           
         }
 
         private static void MetadataContext(ShopContext context)

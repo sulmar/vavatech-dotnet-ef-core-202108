@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vavatech.EFCore.DbRepositories;
 
 namespace Vavatech.EFCore.DbRepositories.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20210819135012_AddFullNameToCustomer")]
+    partial class AddFullNameToCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,7 +178,7 @@ namespace Vavatech.EFCore.DbRepositories.Migrations
                         .HasMaxLength(250)
                         .IsUnicode(false)
                         .HasColumnType("varchar(250)")
-                        .HasComputedColumnSql("[FirstName] + ' ' + [LastName]", true);
+                        .HasComputedColumnSql("[FirstName] + ' ' + [LastName]");
 
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
