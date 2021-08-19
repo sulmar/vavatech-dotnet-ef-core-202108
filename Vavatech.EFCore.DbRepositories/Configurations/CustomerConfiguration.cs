@@ -57,7 +57,7 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
             //builder.Property(p => p.Location)
             //    .HasConversion(
             //        coordinate => coordinate.ToGeoHash(),
-            //        value => Coordinate.FromGeoHash(value)
+            //        value => value.ToCoordinate()
             //    );
 
             // Konwersja za pomocą klasy

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Vavatech.EFCore.DbRepositories;
 using Vavatech.EFCore.IRepositories;
+using Vavatech.EFCore.MVCApp.Middlewares;
 
 namespace Vavatech.EFCore.MVCApp
 {
@@ -30,10 +31,13 @@ namespace Vavatech.EFCore.MVCApp
 
             string connectionString = Configuration.GetConnectionString("ShopConnection");
 
+            services.AddScoped<DbContextMiddleware<ShopContext>>();
+
             // dotnet add package Microsoft.EntityFrameworkCore.SqlServer
             // services.AddDbContext<ShopContext>(options => options.UseSqlServer(connectionString));
 
             services.AddDbContextPool<ShopContext>(options => options.UseSqlServer(connectionString));
+
 
             services.AddControllersWithViews();
         }
@@ -53,6 +57,8 @@ namespace Vavatech.EFCore.MVCApp
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseMiddleware<DbContextMiddleware<ShopContext>>();
 
             app.UseRouting();
 

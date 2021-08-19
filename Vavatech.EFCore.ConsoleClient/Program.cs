@@ -109,8 +109,38 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // AutoIncludeTest(context);
 
-            SavingChangesOnContext(context);
+            // SavingChangesOnContext(context);
 
+            MetadataContext(context);
+
+        }
+
+        private static void MetadataContext(ShopContext context)
+        {
+            var entityTypes = context.Model.GetEntityTypes();
+
+            foreach (var entityType in entityTypes)
+            {
+                var tableName = entityType.GetTableName();
+
+                Console.WriteLine($"==== {tableName} ====");
+
+                // var keys = entityType.GetDeclaredKeys();
+
+                foreach (var property in entityType.GetProperties())
+                {
+                    var columnName = property.GetColumnName();
+
+                    if (property.IsKey())
+                        Console.Write("PK ");
+
+                    if (property.IsForeignKey())
+                        Console.Write("FK ");
+
+                    Console.WriteLine($"{columnName} {property.ClrType.Name}");
+                }
+
+            }
         }
 
         private static void SavingChangesOnContext(ShopContext context)
