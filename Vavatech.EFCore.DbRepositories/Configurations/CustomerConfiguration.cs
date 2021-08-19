@@ -104,7 +104,7 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
         public GeoHashConverter()
             : base(
                   coordinate => coordinate.ToGeoHash(),
-                    value => Coordinate.FromGeoHash(value)
+                    value => value.ToCoordinate()
                   )
         {
         }

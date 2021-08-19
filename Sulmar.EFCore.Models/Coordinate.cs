@@ -3,17 +3,23 @@
 namespace Sulmar.EFCore.Models
 {
 
-
-    // dotnet add package NGeoHash
-
     public class Coordinate : Base
     {
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+    }
 
-        public string ToGeoHash() => GeoHash.Encode(Latitude, Longitude);
 
-        public static Coordinate FromGeoHash(string geoHash)
+
+    // dotnet add package NGeoHash
+    public static class CoordinateExtensions
+    {
+        public static string ToGeoHash(this Coordinate coordinate)
+        {
+            return GeoHash.Encode(coordinate.Latitude, coordinate.Longitude);
+        }
+
+        public static Coordinate ToCoordinate(this string geoHash)
         {
             var decoded = GeoHash.Decode(geoHash);
 
