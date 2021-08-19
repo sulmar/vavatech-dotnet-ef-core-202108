@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vavatech.EFCore.DbRepositories;
 
 namespace Vavatech.EFCore.DbRepositories.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20210819081015_AddvwTotalAmountByCountry")]
+    partial class AddvwTotalAmountByCountry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -360,19 +362,6 @@ namespace Vavatech.EFCore.DbRepositories.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderDetails");
-                });
-
-            modelBuilder.Entity("Sulmar.EFCore.Models.TotalAmountCountry", b =>
-                {
-                    b.Property<string>("Country")
-                        .HasMaxLength(250)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(250)");
-
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.ToView("vwTotalAmountByCountry", "dbo");
                 });
 
             modelBuilder.Entity("Sulmar.EFCore.Models.Product", b =>

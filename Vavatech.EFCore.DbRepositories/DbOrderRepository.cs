@@ -129,6 +129,11 @@ namespace Vavatech.EFCore.DbRepositories
             throw new NotImplementedException();
         }
 
+        public IEnumerable<TotalAmountCountry> GetTotalAmountByCountry()
+        {
+            return context.TotalAmountCountries.ToList();
+        }
+
         public IEnumerable<CustomerTotalAmount> GetTotalAmountByCustomer()
         {
             throw new NotImplementedException();

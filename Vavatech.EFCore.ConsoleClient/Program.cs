@@ -95,8 +95,27 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // ChangeTrackerStateChanged(context);
 
-            GetCustomersByFirstName(context);
+            // GetCustomersByFirstName(context);
 
+            GetTotalAmountCountries(context);
+
+
+            GetTotalAmountByCountryByYear(context);
+
+        }
+
+        private static void GetTotalAmountByCountryByYear(ShopContext context)
+        {
+            var totals = context.GetTotalAmountByCountry(2020).ToList();
+
+            var totals2 = context.TotalAmountCountries.GetTotalAmountByCountry(2020).ToList();
+        }
+
+        private static void GetTotalAmountCountries(ShopContext context)
+        {
+            IOrderRepository orderRepository = new DbOrderRepository(context);
+
+            var totalAmounts = orderRepository.GetTotalAmountByCountry();
         }
 
         private static void GetCustomersByFirstName(ShopContext context)

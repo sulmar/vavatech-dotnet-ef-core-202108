@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -6,10 +6,13 @@
 
   <ItemGroup>
     <None Remove="script1.sql" />
+    <None Remove="Scripts\TotalAmountByCountryForYear.sql" />
+    <None Remove="Scripts\vwTotalAmountByCountry.sql" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Scripts\script1.sql" />
+    <EmbeddedResource Include="Scripts\TotalAmountByCountryForYear.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +28,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Vavatech.EFCore.IRepositories\Vavatech.EFCore.IRepositories.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\vwTotalAmountByCountry.sql" />
   </ItemGroup>
 
 </Project>

@@ -1,13 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Sulmar.EFCore.Models;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Text;
 using Vavatech.EFCore.DbRepositories.Configurations;
 using Vavatech.EFCore.IRepositories;
 
 namespace Vavatech.EFCore.DbRepositories
 {
+    public static class DbSetTotalAmountCountryExtensions
+    {
+        public static IQueryable<TotalAmountCountry> GetTotalAmountByCountry(this DbSet<TotalAmountCountry> dbset, int year)
+        {
+            ShopContext context = dbset.GetService<ICurrentDbContext>().Context as ShopContext;
+
+            return context.GetTotalAmountByCountry(year);
+        }
+        
+    }
+
 
     public class IdentityDbContext : DbContext
     {
@@ -40,8 +53,12 @@ namespace Vavatech.EFCore.DbRepositories
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<TotalAmountCountry> TotalAmountCountries { get; set; }
 
         public int CalculateAge(DateTime dateTime) => throw new NotSupportedException();
+
+        public IQueryable<TotalAmountCountry> GetTotalAmountByCountry(int year) =>
+            FromExpression(() => GetTotalAmountByCountry(year));
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,6 +66,7 @@ namespace Vavatech.EFCore.DbRepositories
 
             modelBuilder.HasDbFunction(typeof(ShopContext).GetMethod(nameof(CalculateAge), new[] { typeof(DateTime) })).HasName("GetAge");
 
+            modelBuilder.HasDbFunction(typeof(ShopContext).GetMethod(nameof(GetTotalAmountByCountry), new[] { typeof(int) })).HasName("TotalAmountByCountryForYear");
 
             // Owned Entities (https://docs.microsoft.com/en-us/ef/core/modeling/owned-entities)
             //modelBuilder.Entity<Customer>().OwnsOne(p => p.InvoiceAddress);
