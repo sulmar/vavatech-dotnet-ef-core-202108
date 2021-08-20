@@ -16,7 +16,7 @@ namespace Vavatech.EFCore.ConsoleClient
     {
         public ShopContext CreateDbContext(string[] args)
         {
-            string connectionString = @"Data Source=(local)\SQLEXPRESS;Integrated Security=True;Initial Catalog=ShopDb;Application Name=Shop";
+            string connectionString = @"Data Source=(local)\SQLEXPRESS;Integrated Security=True;Initial Catalog=ShopDb;Application Name=Shop;MultipleActiveResultSets=True";
 
             // string connectionString2 = @"Data Source=(local)\SQLEXPRESS;Initial Catalog=ShopDb;Integrated Security=False;User Id=john;Password=yourP@ssw0rd;Application Name=Shop";
 

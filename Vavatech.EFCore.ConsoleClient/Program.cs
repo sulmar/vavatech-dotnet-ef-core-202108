@@ -13,6 +13,9 @@ using System.Transactions;
 using System.Threading;
 using Sulmar.EFCore.Models.SearchCriterias;
 using static Microsoft.EntityFrameworkCore.EF;
+using System.Threading.Tasks;
+using System.Data.Common;
+using Microsoft.Data.SqlClient;
 
 namespace Vavatech.EFCore.ConsoleClient
 {
@@ -51,7 +54,7 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // AddDetachedOrder(context);
 
-            GetProducts(context);
+            // GetProducts(context);
 
             // UpdateByINotifyPropertyChangedCustomer(context);
 
@@ -115,7 +118,138 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // GetFullNameCustomers(context);
 
-            GetProductsAndServices(context);
+            // GetProductsAndServices(context);
+
+             Test(context);
+
+            // SplitQueryTest(context);
+
+            // GetLongCustomers(context);
+
+            Console.WriteLine("Press Enter to exit.");
+            Console.ReadLine();
+
+        }
+
+        private static void SplitQueryTest(ShopContext context)
+        {
+             Task.Run(() => SplitQueryTestAsync(context));
+        }
+
+        private static async Task SplitQueryTestAsync(ShopContext context)
+        {
+            CancellationTokenSource cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+
+            CancellationToken token = cts.Token;
+
+            token.Register(() => Console.WriteLine("Cancelled!"));
+
+            context.Database.SetCommandTimeout(TimeSpan.FromSeconds(0));
+
+            var query = (from a in context.Customers
+                        from b in context.Customers
+                        select new { a, b.FirstName })
+                        .AsSplitQuery();
+
+            Console.WriteLine("Starting...");
+
+            var customers = await query.ToListAsync(token);
+        }
+
+        
+
+        private static void GetLongCustomers(ShopContext context)
+        {
+            Console.WriteLine("Press any key to Start!");
+            Console.ReadKey();
+
+            Task.Run(() => GetLongCustomersAsync(context));
+        }
+
+        private static void Test(ShopContext context)
+        {
+            Task.Run(() => CommmandTest(context));
+        }
+
+
+
+        private static void CommmandTest(ShopContext context)
+        {
+            CancellationTokenSource cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+
+            CancellationToken token = cts.Token;
+
+            SqlConnection connection = (SqlConnection)context.Database.GetDbConnection();
+
+            var query = (from a in context.Customers
+                        from b in context.Customers
+                        select new { a, b.FirstName });
+
+            // var sql = query.ToQueryString();
+
+            // string sql = "SELECT * FROM dbo.Customers as a CROSS APPLY dbo.Customers as b";
+
+            //            SqlCommand command = new SqlCommand(sql, connection);
+
+            SqlCommand command = query.GetSqlCommand(context);
+
+            token.Register(() => command.Cancel());
+
+            connection.Open();
+
+            var reader = command.ExecuteReader();
+
+            Console.WriteLine("waiting...");
+
+            try
+            {
+
+                while (reader.Read())
+                {
+                    // TODO: Map
+                    Console.Write(".");
+
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine("Anulowano");
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+
+        }
+
+        private static async Task GetLongCustomersAsync(ShopContext context)
+        {
+            CancellationTokenSource cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+
+            CancellationToken token = cts.Token;
+
+            token.Register(() => Console.WriteLine("Cancelled!"));
+
+            context.Database.SetCommandTimeout(TimeSpan.FromSeconds(0));
+
+            var query = from a in context.Customers
+                        from b in context.Customers
+                        select new { a, b.FirstName };
+
+            Console.WriteLine("Starting...");
+
+
+            var customers = await query.ToListAsync(token);
+
+
+
+
+
+
+
+
+
 
         }
 
@@ -123,10 +257,10 @@ namespace Vavatech.EFCore.ConsoleClient
         {
             var customers = context.Customers
                 .Take(100)
-                .OrderBy(c=>c.Id)
-                .Select(c => new { c.Id, c.FullName}).ToList();
+                .OrderBy(c => c.Id)
+                .Select(c => new { c.Id, c.FullName }).ToList();
 
-           
+
         }
 
         private static void MetadataContext(ShopContext context)
