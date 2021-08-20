@@ -140,11 +140,31 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // LineTest();
 
-            AddCustomerWithEmptyShipAddress(context);
+            // AddCustomerWithEmptyShipAddress(context);
+
+            // GetTotalAmountCountries(context);
+
+            GetDevices(context);
+
+
+            GetVehicles(context);
 
             Console.WriteLine("Press Enter to exit.");
             Console.ReadLine();
 
+        }
+
+        private static void GetVehicles(ShopContext context)
+        {
+            var vehicles = context.Vehicles.ToList();
+
+        }
+
+        private static void GetDevices(ShopContext context)
+        {
+            var devices = context.Devices.ToList();
+
+            // var customers = context.Customers.ToDictionary(p => p.Pesel, c => new { c.FirstName, c.LastName });
         }
 
         private static void LineTest()

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using Vavatech.EFCore.DbRepositories;
@@ -10,9 +11,10 @@ using Vavatech.EFCore.DbRepositories;
 namespace Vavatech.EFCore.DbRepositories.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20210820142057_AddDevice")]
+    partial class AddDevice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -331,7 +333,7 @@ namespace Vavatech.EFCore.DbRepositories.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 8, 20, 16, 40, 53, 910, DateTimeKind.Local).AddTicks(6057),
+                            CreatedOn = new DateTime(2021, 8, 20, 16, 20, 56, 965, DateTimeKind.Local).AddTicks(2344),
                             ExpirationDate = new DateTime(2021, 9, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             OwnerId = 1,
                             SerialNumber = "111111"
@@ -339,7 +341,7 @@ namespace Vavatech.EFCore.DbRepositories.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 8, 20, 16, 40, 53, 910, DateTimeKind.Local).AddTicks(6835),
+                            CreatedOn = new DateTime(2021, 8, 20, 16, 20, 56, 965, DateTimeKind.Local).AddTicks(3029),
                             ExpirationDate = new DateTime(2021, 9, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             OwnerId = 2,
                             SerialNumber = "222222"
@@ -347,7 +349,7 @@ namespace Vavatech.EFCore.DbRepositories.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2021, 8, 20, 16, 40, 53, 910, DateTimeKind.Local).AddTicks(6860),
+                            CreatedOn = new DateTime(2021, 8, 20, 16, 20, 56, 965, DateTimeKind.Local).AddTicks(3076),
                             ExpirationDate = new DateTime(2021, 9, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             OwnerId = 3,
                             SerialNumber = "333333"
@@ -452,28 +454,28 @@ namespace Vavatech.EFCore.DbRepositories.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 8, 20, 16, 40, 53, 922, DateTimeKind.Local).AddTicks(9707),
+                            CreatedOn = new DateTime(2021, 8, 20, 16, 20, 56, 976, DateTimeKind.Local).AddTicks(9420),
                             Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (27.175015 78.042155)"),
                             Name = "Taj Mahal"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 8, 20, 16, 40, 53, 924, DateTimeKind.Local).AddTicks(3369),
+                            CreatedOn = new DateTime(2021, 8, 20, 16, 20, 56, 978, DateTimeKind.Local).AddTicks(3049),
                             Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (31.61998 74.876485)"),
                             Name = "The Golden Temple of Amritsar"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2021, 8, 20, 16, 40, 53, 924, DateTimeKind.Local).AddTicks(3393),
+                            CreatedOn = new DateTime(2021, 8, 20, 16, 20, 56, 978, DateTimeKind.Local).AddTicks(3076),
                             Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (28.656159 77.24102)"),
                             Name = "The Red Fort, New Delhi"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2021, 8, 20, 16, 40, 53, 924, DateTimeKind.Local).AddTicks(3398),
+                            CreatedOn = new DateTime(2021, 8, 20, 16, 20, 56, 978, DateTimeKind.Local).AddTicks(3080),
                             Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (18.921984 72.834654)"),
                             Name = "The Gateway of India, Mumbai"
                         });
@@ -492,37 +494,6 @@ namespace Vavatech.EFCore.DbRepositories.Migrations
                     b.ToTable("TotalAmountCountries");
 
                     b.ToFunction("TotalAmountByCountry");
-                });
-
-            modelBuilder.Entity("Vehicle", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<float>("Capacity")
-                        .HasColumnType("real");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("Model")
-                        .HasMaxLength(250)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(250)");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(250)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(250)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Vehicle");
                 });
 
             modelBuilder.Entity("Sulmar.EFCore.Models.Product", b =>

@@ -15,7 +15,22 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
         {
             builder.HasNoKey();
 
-            builder.ToView("vwTotalAmountByCountry", "dbo");
+            // builder.ToView("vwTotalAmountByCountry", "dbo");
+
+            //string sql = @"select 
+	           //                 ShipAddress_Country as Country,
+	           //                 sum(od.Quantity * od.UnitPrice) as TotalAmount
+
+            //                from Orders as o
+	           //                 inner join Customers as c
+		          //                   on o.CustomerId = c.Id
+	           //                 inner join OrderDetails as od
+		          //                  on o.Id = od.OrderId
+            //                group by ShipAddress_Country";
+
+            //builder.ToSqlQuery(sql);
+
+            builder.ToFunction("TotalAmountByCountry");
         }
     }
 }

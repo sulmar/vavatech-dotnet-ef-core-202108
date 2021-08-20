@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Sulmar.EFCore.Models;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
@@ -55,6 +56,10 @@ namespace Vavatech.EFCore.DbRepositories
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<TotalAmountCountry> TotalAmountCountries { get; set; }
 
+        public DbSet<Dictionary<string, object>> Devices => Set<Dictionary<string, object>>("Device");
+
+        public DbSet<Vehicle> Vehicles => Set<Vehicle>("Vehicle");
+
         public DbSet<Shop> Shops { get; set; }
 
         public int CalculateAge(DateTime dateTime) => throw new NotSupportedException();
@@ -65,6 +70,26 @@ namespace Vavatech.EFCore.DbRepositories
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Device", d =>
+            {
+                d.IndexerProperty<int>("Id");
+                d.IndexerProperty<string>("Name").IsRequired();
+                d.IndexerProperty<decimal>("Price");
+            });
+
+
+            modelBuilder.SharedTypeEntity<Vehicle>("Vehicle").HasKey(p => p.Id);
+
+          
+
+            //modelBuilder.SharedTypeEntity<List<Vehicle>>("Vehicles", d =>
+            //{
+            //    d.HasKey(d=>d.)
+            //    d.IndexerProperty<string>("Name").IsRequired();
+            //    d.IndexerProperty<float>("Capacity");
+            //    d.IndexerProperty<string>("Model").IsRequired();
+            //});
 
             modelBuilder.HasDbFunction(typeof(ShopContext).GetMethod(nameof(CalculateAge), new[] { typeof(DateTime) })).HasName("GetAge");
 
