@@ -18,10 +18,10 @@ namespace Vavatech.EFCore.DbRepositories
         {
         }
 
-        public override IEnumerable<Product> Get()
-        {
-            return context.Products.AsNoTracking().ToList();
-        }
+        //public override IEnumerable<Product> Get()
+        //{
+        //    return context.Products.AsNoTracking().ToList();
+        //}
 
         public IEnumerable<Product> GetByColor(string color)
         {

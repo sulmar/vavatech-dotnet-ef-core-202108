@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sulmar.EFCore.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Vavatech.EFCore.IRepositories;
@@ -13,9 +14,15 @@ namespace Vavatech.EFCore.DbRepositories
 
         protected DbSet<TEntity> entities => context.Set<TEntity>();
 
+        private readonly Func<ShopContext, int, TEntity> getById;
+        private readonly Func<ShopContext, IEnumerable<TEntity>> getAll;
+
         public DbEntityRepository(ShopContext context)
         {
             this.context = context;
+
+            getById = EF.CompileQuery((ShopContext db, int id) => db.Set<TEntity>().SingleOrDefault(c => c.Id == id));
+            getAll = EF.CompileQuery((ShopContext db) => db.Set<TEntity>().ToList());
         }
 
         public virtual void Add(TEntity entity)
@@ -32,12 +39,14 @@ namespace Vavatech.EFCore.DbRepositories
 
         public virtual IEnumerable<TEntity> Get()
         {
-            return entities.ToList();
+            // return entities.ToList();
+            return getAll(context);
         }
 
         public virtual TEntity Get(int id)
         {
-            return entities.Find(id);
+            return getById(context, id);
+            // return entities.Find(id);
         }
 
         public virtual void Remove(int id)

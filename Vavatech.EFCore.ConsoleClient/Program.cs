@@ -16,6 +16,8 @@ using static Microsoft.EntityFrameworkCore.EF;
 using System.Threading.Tasks;
 using System.Data.Common;
 using Microsoft.Data.SqlClient;
+using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace Vavatech.EFCore.ConsoleClient
 {
@@ -120,16 +122,66 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // GetProductsAndServices(context);
 
-             Test(context);
+            // CancelLongRunningQuery(context);
 
             // SplitQueryTest(context);
 
             // GetLongCustomers(context);
 
+           // CompileQueryTest(context);
+
+
+            IProductRepository productRepository = new DbProductRepository(context);
+
+            var product = productRepository.Get(1);
+
+            var products = productRepository.Get();
+
+
             Console.WriteLine("Press Enter to exit.");
             Console.ReadLine();
 
         }
+
+        private static void CompileQueryTest(ShopContext context)
+        {
+            var stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+
+            var ids = context.Customers.Take(1000).OrderBy(c => c.Id).Select(c => c.Id).ToArray();
+
+            foreach (var id in ids)
+            {
+                Customer customer = context.Customers.Find(id);
+            }
+
+            stopwatch.Stop();
+
+            Console.BackgroundColor = ConsoleColor.Red;
+            Debug.WriteLine($"Regular Query : {stopwatch.ElapsedMilliseconds} ms");
+            Console.ResetColor();
+            stopwatch.Reset();
+
+
+            stopwatch.Start();
+
+            Func<ShopContext, int, Customer> getCustomer = EF.CompileQuery((ShopContext db, int id) => db.Customers.SingleOrDefault(c => c.Id == id));
+
+            foreach (var id in ids)
+            {
+                var customer = getCustomer(context, id);
+            }
+
+            stopwatch.Stop();
+
+            Console.BackgroundColor = ConsoleColor.Red;
+            Debug.WriteLine($"Compile Query : {stopwatch.ElapsedMilliseconds} ms");
+            Console.ResetColor();
+        }
+
+        //private static readonly Func<ShopContext, int, Customer> getCustomer = EF.CompileQuery((ShopContext context, int id) 
+        //    => context.Customers.SingleOrDefault(c => c.Id == id));
 
         private static void SplitQueryTest(ShopContext context)
         {
@@ -166,14 +218,11 @@ namespace Vavatech.EFCore.ConsoleClient
             Task.Run(() => GetLongCustomersAsync(context));
         }
 
-        private static void Test(ShopContext context)
-        {
-            Task.Run(() => CommmandTest(context));
-        }
+       
 
 
 
-        private static void CommmandTest(ShopContext context)
+        private static void CancelLongRunningQuery(ShopContext context)
         {
             CancellationTokenSource cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
 
@@ -191,7 +240,7 @@ namespace Vavatech.EFCore.ConsoleClient
 
             //            SqlCommand command = new SqlCommand(sql, connection);
 
-            SqlCommand command = query.GetSqlCommand(context);
+            SqlCommand command = query.GetSqlCommand();
 
             token.Register(() => command.Cancel());
 
