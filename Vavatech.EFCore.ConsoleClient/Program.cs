@@ -34,6 +34,9 @@ namespace Vavatech.EFCore.ConsoleClient
 
             Setup(context);
 
+           
+
+
             //   RemoveCustomer(context);
 
             // AddCustomer(context);
@@ -44,7 +47,7 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // UpdateDeserializedCustomer(context);
 
-            // AddCustomers(context);
+
 
             // GetCustomers(context);
 
@@ -1012,7 +1015,7 @@ namespace Vavatech.EFCore.ConsoleClient
 
             Faker<Customer> customerFaker = new CustomerFaker(new AddressFaker(), new CoordinateFaker());
 
-            var customers = customerFaker.GenerateLazy(100_000);
+            var customers = customerFaker.GenerateLazy(1_000);
 
             customerRepository.AddRange(customers);
         }
@@ -1024,6 +1027,11 @@ namespace Vavatech.EFCore.ConsoleClient
             // context.Database.EnsureCreated(); // nie używać w przypadku stosowania migracji!
 
             context.Database.Migrate();
+
+            if (!context.Customers.Any())
+            {
+                AddCustomers(context);
+            }
 
             Console.WriteLine("Created.");
         }
