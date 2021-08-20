@@ -18,6 +18,7 @@ using System.Data.Common;
 using Microsoft.Data.SqlClient;
 using System.Diagnostics;
 using System.Collections.Generic;
+using NetTopologySuite;
 
 namespace Vavatech.EFCore.ConsoleClient
 {
@@ -135,9 +136,43 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // DapperTest();
 
+            SpatialTypeTest(context);
+
+            LineTest();
+
             Console.WriteLine("Press Enter to exit.");
             Console.ReadLine();
 
+        }
+
+        private static void LineTest()
+        {
+            NetTopologySuite.Geometries.Coordinate[] coordinates = new NetTopologySuite.Geometries.Coordinate[]
+           {
+                new NetTopologySuite.Geometries.Coordinate( 27.10000, 78.04000),
+                new NetTopologySuite.Geometries.Coordinate( 28.10000, 78.04000),
+                new NetTopologySuite.Geometries.Coordinate( 28.50000, 71.04000),
+
+           };
+
+            var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+
+            var line = geometryFactory.CreateLineString(coordinates);
+        }
+
+        private static void SpatialTypeTest(ShopContext context)
+        {
+            IShopRepository shopRepository = new DbShopRepository(context);
+
+            var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+
+           
+
+            var myLocation = geometryFactory.CreatePoint(new NetTopologySuite.Geometries.Coordinate( 27.10000, 78.04000));
+
+            var shops = shopRepository.Get();
+
+            var shops2 = shopRepository.Get(myLocation, 500_000);
         }
 
         private static void DapperTest()

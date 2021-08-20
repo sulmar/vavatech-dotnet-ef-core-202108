@@ -25,6 +25,9 @@ namespace Vavatech.EFCore.ConsoleClient
                 .UseSqlServer(connectionString, options =>
                 {
                     // options.MaxBatchSize(99);
+
+                    // dotnet add packackage Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite
+                    options.UseNetTopologySuite();
                 })
                 .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
                 // .UseLazyLoadingProxies()
@@ -32,6 +35,9 @@ namespace Vavatech.EFCore.ConsoleClient
                 .AddInterceptors(new LoggerCommandInterceptor())
                 .AddInterceptors(new LoggingSavingChangesInterceptor())
                 .ReplaceService<IMigrationsSqlGenerator, MyMigrationsSqlGenerator>()
+
+                
+                
                 .Options;
 
             ShopContext context = new ShopContext(options);

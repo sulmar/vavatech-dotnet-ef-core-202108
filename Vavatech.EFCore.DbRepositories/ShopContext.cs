@@ -55,6 +55,8 @@ namespace Vavatech.EFCore.DbRepositories
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<TotalAmountCountry> TotalAmountCountries { get; set; }
 
+        public DbSet<Shop> Shops { get; set; }
+
         public int CalculateAge(DateTime dateTime) => throw new NotSupportedException();
 
         public IQueryable<TotalAmountCountry> GetTotalAmountByCountry(int year) =>
