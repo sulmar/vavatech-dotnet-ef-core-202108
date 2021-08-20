@@ -787,6 +787,8 @@ namespace Vavatech.EFCore.ConsoleClient
 
         private static void AddAttachments(ShopContext context)
         {
+            Console.Write("Adding attachments... ");
+
             Faker<Attachment> faker = new AttachmentFaker(new AttachmentDetailFaker());
 
             var attachments = faker.Generate(50);
@@ -794,6 +796,10 @@ namespace Vavatech.EFCore.ConsoleClient
             IAttachmentRepository attachmentRepository = new DbAttachmentRepository(context);
 
             attachmentRepository.AddRange(attachments);
+
+            Console.WriteLine($"({attachments.Count()}) added.");
+
+
 
 
         }
@@ -841,22 +847,30 @@ namespace Vavatech.EFCore.ConsoleClient
 
         private static void AddServices(ShopContext context)
         {
+            Console.Write("Adding services... ");
+
             Faker<Service> faker = new ServiceFaker();
 
             var services = faker.GenerateLazy(10);
 
             IServiceRepository serviceRepository = new DbServiceRepository(context);
             serviceRepository.AddRange(services);
+
+            Console.WriteLine($"({services.Count()}) added.");
         }
 
         private static void AddProducts(ShopContext context)
         {
+            Console.Write("Adding products... ");
+
             Faker<Product> faker = new ProductFaker();
 
             var products = faker.GenerateLazy(20);
 
             IProductRepository productRepository = new DbProductRepository(context);
             productRepository.AddRange(products);
+
+            Console.WriteLine($"({products.Count()}) added.");
         }
 
         private static void AddOrder(ShopContext context)
@@ -1011,6 +1025,8 @@ namespace Vavatech.EFCore.ConsoleClient
 
         private static void AddCustomers(ShopContext context)
         {
+            Console.Write("Adding Customers... ");
+
             ICustomerRepository customerRepository = new DbCustomerRepository(context);
 
             Faker<Customer> customerFaker = new CustomerFaker(new AddressFaker(), new CoordinateFaker());
@@ -1018,19 +1034,32 @@ namespace Vavatech.EFCore.ConsoleClient
             var customers = customerFaker.GenerateLazy(1_000);
 
             customerRepository.AddRange(customers);
+
+            Console.WriteLine($"({customers.Count()}) added.");
         }
 
         private static void Setup(ShopContext context)
         {
-            Console.WriteLine("Creating database...");
+            Console.WriteLine("Checking connection to database...");
+
+
+            if (context.Database.CanConnect())
+            {
+                Console.WriteLine("Connected.");
+            }
+            else
+            {
+                Console.WriteLine("Creating database...");
 
             // context.Database.EnsureCreated(); // nie używać w przypadku stosowania migracji!
 
-            context.Database.Migrate();
+                 context.Database.Migrate();
 
-            if (!context.Customers.Any())
-            {
+                Console.WriteLine("Preparing data....");
+           
                 AddCustomers(context);
+                AddProducts(context);
+                AddServices(context);
             }
 
             Console.WriteLine("Created.");

@@ -11,7 +11,7 @@ namespace Sulmar.EFCore.Models
 
         public BaseEntity()
         {
-            // CreatedOn = DateTime.Now;
+            CreatedOn = DateTime.Now;
         }
 
     }
