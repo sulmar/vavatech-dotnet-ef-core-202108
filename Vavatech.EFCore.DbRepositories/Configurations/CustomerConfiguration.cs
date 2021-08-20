@@ -17,8 +17,31 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
-            builder.OwnsOne(p => p.InvoiceAddress);
-            builder.OwnsOne(p => p.ShipAddress);
+            builder.OwnsOne(p => p.InvoiceAddress, 
+                c =>
+                {
+                    c.Property(a => a.City).IsRequired().HasMaxLength(50);
+                    c.Property(a => a.Country).IsRequired().HasMaxLength(100);
+                    c.Property(a => a.Street).IsRequired().HasMaxLength(100);
+                    c.Property(a => a.ZipCode).HasMaxLength(6).IsFixedLength().IsUnicode(false);
+                });
+
+
+            builder.OwnsOne(p => p.ShipAddress,
+                 c =>
+                 {
+                     c.Property(a => a.City).IsRequired().HasMaxLength(50);
+                     c.Property(a => a.Country).IsRequired().HasMaxLength(100);
+                     c.Property(a => a.Street).IsRequired().HasMaxLength(100);
+                     c.Property(a => a.ZipCode).HasMaxLength(6).IsFixedLength().IsUnicode(false); ;
+                 }
+                );
+
+            builder.Navigation(e => e.InvoiceAddress).IsRequired();
+
+            builder.Navigation(e => e.ShipAddress).IsRequired();
+
+
             builder.Property(p => p.FirstName)
                 .HasMaxLength(50)
                 .IsRequired()

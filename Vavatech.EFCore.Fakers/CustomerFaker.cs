@@ -42,6 +42,8 @@ namespace Vavatech.EFCore.Fakers
             RuleFor(p => p.Credit, f => f.Random.Decimal(0, 1000));
 
             Ignore(p => p.Version);
+
+            Ignore(p => p.FullName);
         }
     }
 

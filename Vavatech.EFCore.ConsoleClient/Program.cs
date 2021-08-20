@@ -102,7 +102,7 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // ChangeTrackerStateChanged(context);
 
-             GetCustomersByFirstName(context);
+            //  GetCustomersByFirstName(context);
 
             //GetTotalAmountCountries(context);
 
@@ -136,9 +136,11 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // DapperTest();
 
-            SpatialTypeTest(context);
+            // SpatialTypeTest(context);
 
-            LineTest();
+            // LineTest();
+
+            AddCustomerWithEmptyShipAddress(context);
 
             Console.WriteLine("Press Enter to exit.");
             Console.ReadLine();
@@ -927,6 +929,21 @@ namespace Vavatech.EFCore.ConsoleClient
             ICustomerRepository customerRepository2 = new DbCustomerRepository(context2);
 
             customerRepository2.UpdateDateOfBirth(deserializedCustomer);
+        }
+
+        private static void AddCustomerWithEmptyShipAddress(ShopContext context)
+        {
+            ICustomerRepository customerRepository = new DbCustomerRepository(context);
+
+            Faker<Customer> faker = new CustomerFaker(new AddressFaker(), new CoordinateFaker());
+
+            Customer customer = faker.Generate();
+
+            //customer.InvoiceAddress = null;
+            // customer.ShipAddress = null;
+
+
+            customerRepository.Add(customer);
         }
 
         private static void AddCustomer(ShopContext context)

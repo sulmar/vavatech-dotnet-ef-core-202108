@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using Vavatech.EFCore.DbRepositories;
@@ -10,9 +11,10 @@ using Vavatech.EFCore.DbRepositories;
 namespace Vavatech.EFCore.DbRepositories.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20210820133456_ChangeAddressOnCustomer")]
+    partial class ChangeAddressOnCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -312,7 +314,7 @@ namespace Vavatech.EFCore.DbRepositories.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 8, 20, 15, 51, 6, 875, DateTimeKind.Local).AddTicks(2294),
+                            CreatedOn = new DateTime(2021, 8, 20, 15, 34, 55, 489, DateTimeKind.Local).AddTicks(6705),
                             ExpirationDate = new DateTime(2021, 9, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             OwnerId = 1,
                             SerialNumber = "111111"
@@ -320,7 +322,7 @@ namespace Vavatech.EFCore.DbRepositories.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 8, 20, 15, 51, 6, 875, DateTimeKind.Local).AddTicks(3128),
+                            CreatedOn = new DateTime(2021, 8, 20, 15, 34, 55, 489, DateTimeKind.Local).AddTicks(7373),
                             ExpirationDate = new DateTime(2021, 9, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             OwnerId = 2,
                             SerialNumber = "222222"
@@ -328,7 +330,7 @@ namespace Vavatech.EFCore.DbRepositories.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2021, 8, 20, 15, 51, 6, 875, DateTimeKind.Local).AddTicks(3172),
+                            CreatedOn = new DateTime(2021, 8, 20, 15, 34, 55, 489, DateTimeKind.Local).AddTicks(7405),
                             ExpirationDate = new DateTime(2021, 9, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             OwnerId = 3,
                             SerialNumber = "333333"
@@ -433,28 +435,28 @@ namespace Vavatech.EFCore.DbRepositories.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 8, 20, 15, 51, 6, 887, DateTimeKind.Local).AddTicks(89),
+                            CreatedOn = new DateTime(2021, 8, 20, 15, 34, 55, 504, DateTimeKind.Local).AddTicks(1313),
                             Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (27.175015 78.042155)"),
                             Name = "Taj Mahal"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 8, 20, 15, 51, 6, 888, DateTimeKind.Local).AddTicks(3551),
+                            CreatedOn = new DateTime(2021, 8, 20, 15, 34, 55, 505, DateTimeKind.Local).AddTicks(4831),
                             Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (31.61998 74.876485)"),
                             Name = "The Golden Temple of Amritsar"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2021, 8, 20, 15, 51, 6, 888, DateTimeKind.Local).AddTicks(3586),
+                            CreatedOn = new DateTime(2021, 8, 20, 15, 34, 55, 505, DateTimeKind.Local).AddTicks(4860),
                             Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (28.656159 77.24102)"),
                             Name = "The Red Fort, New Delhi"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2021, 8, 20, 15, 51, 6, 888, DateTimeKind.Local).AddTicks(3591),
+                            CreatedOn = new DateTime(2021, 8, 20, 15, 34, 55, 505, DateTimeKind.Local).AddTicks(4865),
                             Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (18.921984 72.834654)"),
                             Name = "The Gateway of India, Mumbai"
                         });
@@ -542,27 +544,26 @@ namespace Vavatech.EFCore.DbRepositories.Migrations
 
                             b1.Property<string>("City")
                                 .IsRequired()
-                                .HasMaxLength(50)
+                                .HasMaxLength(250)
                                 .IsUnicode(false)
-                                .HasColumnType("varchar(50)");
+                                .HasColumnType("varchar(250)");
 
                             b1.Property<string>("Country")
                                 .IsRequired()
-                                .HasMaxLength(100)
+                                .HasMaxLength(250)
                                 .IsUnicode(false)
-                                .HasColumnType("varchar(100)");
+                                .HasColumnType("varchar(250)");
 
                             b1.Property<string>("Street")
                                 .IsRequired()
-                                .HasMaxLength(100)
+                                .HasMaxLength(250)
                                 .IsUnicode(false)
-                                .HasColumnType("varchar(100)");
+                                .HasColumnType("varchar(250)");
 
                             b1.Property<string>("ZipCode")
-                                .HasMaxLength(6)
+                                .HasMaxLength(250)
                                 .IsUnicode(false)
-                                .HasColumnType("char(6)")
-                                .IsFixedLength(true);
+                                .HasColumnType("varchar(250)");
 
                             b1.HasKey("CustomerId");
 
@@ -581,24 +582,18 @@ namespace Vavatech.EFCore.DbRepositories.Migrations
 
                             b1.Property<string>("City")
                                 .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("Country")
                                 .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("Street")
                                 .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("ZipCode")
-                                .HasMaxLength(6)
-                                .IsUnicode(false)
-                                .HasColumnType("char(6)")
-                                .IsFixedLength(true);
+                                .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("CustomerId");
 
