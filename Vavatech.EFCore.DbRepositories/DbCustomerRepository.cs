@@ -221,6 +221,9 @@ namespace Vavatech.EFCore.DbRepositories
            
         }
 
-        
+        public IEnumerable<Customer> GetCustomersWithLoyaltyCard()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

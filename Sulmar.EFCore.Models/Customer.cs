@@ -12,7 +12,9 @@ namespace Sulmar.EFCore.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName { get; set; }
-        public string Pesel { get; set; }
+
+        private string _validatedPesel;
+        public string Pesel { get; private set; }
         public CustomerType CustomerType { get; set; }
         public byte[] Avatar { get; set; }
         public DateTime? DateOfBirth { get; set; }

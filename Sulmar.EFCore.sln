@@ -5,15 +5,17 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sulmar.EFCore.Models", "Sulmar.EFCore.Models\Sulmar.EFCore.Models.csproj", "{569EB494-F728-4EF5-9B38-AFCCF4D0364E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vavatech.EFCore.ConsoleClient", "Vavatech.EFCore.ConsoleClient\Vavatech.EFCore.ConsoleClient.csproj", "{CA60B3EE-233C-4500-9EEC-9C9290EE38E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vavatech.EFCore.ConsoleClient", "Vavatech.EFCore.ConsoleClient\Vavatech.EFCore.ConsoleClient.csproj", "{CA60B3EE-233C-4500-9EEC-9C9290EE38E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vavatech.EFCore.IRepositories", "Vavatech.EFCore.IRepositories\Vavatech.EFCore.IRepositories.csproj", "{16A1C2BC-030D-4694-A37E-F4B84A277E8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vavatech.EFCore.IRepositories", "Vavatech.EFCore.IRepositories\Vavatech.EFCore.IRepositories.csproj", "{16A1C2BC-030D-4694-A37E-F4B84A277E8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vavatech.EFCore.DbRepositories", "Vavatech.EFCore.DbRepositories\Vavatech.EFCore.DbRepositories.csproj", "{750E6A8A-B6BE-4703-970A-3A50A6543F17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vavatech.EFCore.DbRepositories", "Vavatech.EFCore.DbRepositories\Vavatech.EFCore.DbRepositories.csproj", "{750E6A8A-B6BE-4703-970A-3A50A6543F17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vavatech.EFCore.Fakers", "Vavatech.EFCore.Fakers\Vavatech.EFCore.Fakers.csproj", "{71897C87-8842-4E0C-8232-3DCB04843989}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vavatech.EFCore.Fakers", "Vavatech.EFCore.Fakers\Vavatech.EFCore.Fakers.csproj", "{71897C87-8842-4E0C-8232-3DCB04843989}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vavatech.EFCore.MVCApp", "Vavatech.EFCore.MVCApp\Vavatech.EFCore.MVCApp.csproj", "{086BAA7B-FDE0-4ED7-91B4-E74E177CB377}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vavatech.EFCore.MVCApp", "Vavatech.EFCore.MVCApp\Vavatech.EFCore.MVCApp.csproj", "{086BAA7B-FDE0-4ED7-91B4-E74E177CB377}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vavatech.EFCore.DapperRepositories", "Vavatech.EFCore.DapperRepositories\Vavatech.EFCore.DapperRepositories.csproj", "{71464A86-F882-4485-88D0-DBB93F0053B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{086BAA7B-FDE0-4ED7-91B4-E74E177CB377}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{086BAA7B-FDE0-4ED7-91B4-E74E177CB377}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{086BAA7B-FDE0-4ED7-91B4-E74E177CB377}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71464A86-F882-4485-88D0-DBB93F0053B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71464A86-F882-4485-88D0-DBB93F0053B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71464A86-F882-4485-88D0-DBB93F0053B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71464A86-F882-4485-88D0-DBB93F0053B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

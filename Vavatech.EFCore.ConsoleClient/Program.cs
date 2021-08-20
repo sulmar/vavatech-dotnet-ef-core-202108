@@ -101,7 +101,7 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // ChangeTrackerStateChanged(context);
 
-            // GetCustomersByFirstName(context);
+             GetCustomersByFirstName(context);
 
             //GetTotalAmountCountries(context);
 
@@ -128,19 +128,36 @@ namespace Vavatech.EFCore.ConsoleClient
 
             // GetLongCustomers(context);
 
-           // CompileQueryTest(context);
+            // CompileQueryTest(context);
 
 
+            // GetProductsTest(context);
+
+            // DapperTest();
+
+            Console.WriteLine("Press Enter to exit.");
+            Console.ReadLine();
+
+        }
+
+        private static void DapperTest()
+        {
+            string connectionString = @"Data Source=(local)\SQLEXPRESS;Integrated Security=True;Initial Catalog=ShopDb;Application Name=Shop;MultipleActiveResultSets=True";
+            SqlConnection connection = new SqlConnection(connectionString);
+            ICustomerRepository customerRepository = new DapperRepositories.DbCustomerRepository(connection);
+
+            // var customers = customerRepository.Get();
+
+            var customers = customerRepository.GetCustomersWithLoyaltyCard();
+        }
+
+        private static void GetProductsTest(ShopContext context)
+        {
             IProductRepository productRepository = new DbProductRepository(context);
 
             var product = productRepository.Get(1);
 
             var products = productRepository.Get();
-
-
-            Console.WriteLine("Press Enter to exit.");
-            Console.ReadLine();
-
         }
 
         private static void CompileQueryTest(ShopContext context)
@@ -452,7 +469,7 @@ namespace Vavatech.EFCore.ConsoleClient
         {
             if (e.FromQuery && e.Entry.Entity is Customer customer)
             {
-                customer.Pesel = customer.Pesel.Replace('0', '*');
+                // customer.Pesel = customer.Pesel.Replace('0', '*');
             }
 
             if (!e.FromQuery && e.Entry.State == EntityState.Added && e.Entry.Entity is BaseEntity entity)

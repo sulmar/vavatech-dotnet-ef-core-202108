@@ -17,5 +17,7 @@ namespace Vavatech.EFCore.IRepositories
         IEnumerable<Customer> Get(CustomerSearchCriteria searchCriteria);
 
         IEnumerable<Customer> GetByFirstName(int lenght);
+
+        IEnumerable<Customer> GetCustomersWithLoyaltyCard();
     }
 }

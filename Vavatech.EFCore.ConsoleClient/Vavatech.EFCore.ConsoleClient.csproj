@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Vavatech.EFCore.DapperRepositories\Vavatech.EFCore.DapperRepositories.csproj" />
     <ProjectReference Include="..\Vavatech.EFCore.DbRepositories\Vavatech.EFCore.DbRepositories.csproj" />
     <ProjectReference Include="..\Vavatech.EFCore.Fakers\Vavatech.EFCore.Fakers.csproj" />
     <ProjectReference Include="..\Vavatech.EFCore.IRepositories\Vavatech.EFCore.IRepositories.csproj" />

@@ -106,6 +106,10 @@ namespace Vavatech.EFCore.DbRepositories.Configurations
             builder
                 .HasIndex(p => new { p.FirstName, p.LastName });
 
+            // backing-field
+            // https://docs.microsoft.com/pl-pl/ef/core/modeling/backing-field?tabs=fluent-api
+            // builder.Property(p => p.Pesel).HasField("_validatedPesel");
+
         }
     }
 
